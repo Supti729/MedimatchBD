@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Medicine Donor Connect BD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  colors: {
+    brand: { 50:'#EAF5F3', 100:'#D3EAE6', 600:'#0F6B66', 700:'#0B5753', 900:'#0A2E2D' },
+    ink: '#14262B', muted: '#4A5F64', line: '#D9E4E2', canvas: '#F6FAF9',
+    warm: { 100:'#FFF1DC', 700:'#8A5200' }
+  },
+  fontFamily: { sans: ['"Plus Jakarta Sans"','"Hind Siliguri"','system-ui','sans-serif'] }
+}}}
+</script>
+<style>
+  :focus-visible { outline: 3px solid #F2A93B; outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body class="bg-white text-ink font-sans antialiased">
+
+<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:m-2 focus:bg-white focus:p-2 rounded">Skip to content</a>
+
+<!-- ============ HEADER (component: Navbar) ============ -->
+<header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-line">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+    <a href="index.html" class="flex items-center gap-2 font-bold text-brand-700">
+      <span class="grid place-items-center w-9 h-9 rounded-lg bg-brand-600 text-white" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      </span>
+      <span class="leading-tight text-sm sm:text-base">Medicine Donor<br class="sm:hidden"> Connect BD</span>
+    </a>
+    <nav aria-label="Main" class="hidden lg:flex items-center gap-6 text-sm font-medium">
+      <a href="index.html" class="text-brand-700 border-b-2 border-brand-600 py-5" aria-current="page">Home</a>
+      <a href="browse.html" class="hover:text-brand-600">Find Medicine</a>
+      <a href="request-create.html" class="hover:text-brand-600">Request Medicine</a>
+      <a href="listing-create.html" class="hover:text-brand-600">Donate Medicine</a>
+      <a href="how-it-works.html" class="hover:text-brand-600">How It Works</a>
+      <a href="safety.html" class="hover:text-brand-600">Safety</a>
+    </nav>
+    <div class="hidden lg:flex items-center gap-2">
+      <a href="login.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-brand-700 hover:bg-brand-50">Log in</a>
+      <a href="register.html" class="px-4 py-2 rounded-lg text-sm font-semibold bg-brand-600 text-white hover:bg-brand-700">Register</a>
+    </div>
+    <button id="menuBtn" class="lg:hidden p-2 rounded-lg border border-line" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+  <nav id="mobileNav" aria-label="Mobile" class="hidden lg:hidden border-t border-line bg-white px-4 py-3 text-base font-medium">
+    <a href="index.html" class="block py-3">Home</a>
+    <a href="browse.html" class="block py-3">Find Medicine</a>
+    <a href="request-create.html" class="block py-3">Request Medicine</a>
+    <a href="listing-create.html" class="block py-3">Donate Medicine</a>
+    <a href="how-it-works.html" class="block py-3">How It Works</a>
+    <a href="safety.html" class="block py-3">Safety</a>
+    <div class="grid grid-cols-2 gap-2 pt-3">
+      <a href="login.html" class="text-center py-3 rounded-lg border border-brand-600 text-brand-700 font-semibold">Log in</a>
+      <a href="register.html" class="text-center py-3 rounded-lg bg-brand-600 text-white font-semibold">Register</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO + SEARCH ============ -->
+<section class="bg-canvas border-b border-line">
+  <div class="max-w-6xl mx-auto px-4 py-12 lg:py-20 grid lg:grid-cols-5 gap-10 items-center">
+    <div class="lg:col-span-3">
+      <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight tracking-tight text-brand-900">
+        Find the medicine you need. Share the medicine you no longer need.
+      </h1>
+      <p class="mt-4 text-lg text-muted max-w-xl">
+        A community platform for people across Bangladesh to pass on eligible, unused medicine to neighbours who need it, with private chat and safety checks built in.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="browse.html" class="px-6 py-3 rounded-lg bg-brand-600 text-white font-semibold hover:bg-brand-700">Find Medicine</a>
+        <a href="listing-create.html" class="px-6 py-3 rounded-lg bg-white border-2 border-brand-600 text-brand-700 font-semibold hover:bg-brand-50">Donate Medicine</a>
+        <a href="request-create.html" class="px-6 py-3 rounded-lg font-semibold text-brand-700 underline underline-offset-4 hover:text-brand-900">Request a Medicine</a>
+      </div>
+    </div>
+
+    <!-- Search card (component: SearchBar) -->
+    <form action="search-results.html" class="lg:col-span-2 bg-white rounded-2xl border border-line shadow-sm p-5" role="search">
+      <h2 class="text-lg font-bold">What medicine are you looking for?</h2>
+      <label for="q" class="block mt-4 text-sm font-medium">Medicine name</label>
+      <input id="q" name="q" type="text" placeholder="e.g. Napa 500, Paracetamol" class="mt-1 w-full rounded-lg border border-line px-3 py-3 focus:border-brand-600">
+      <label for="loc" class="block mt-3 text-sm font-medium">Location</label>
+      <select id="loc" name="loc" class="mt-1 w-full rounded-lg border border-line px-3 py-3 bg-white">
+        <option>Anywhere in Bangladesh</option><option>Near me</option><option>My district</option>
+      </select>
+      <button type="submit" class="mt-4 w-full py-3 rounded-lg bg-brand-600 text-white font-semibold hover:bg-brand-700">Search</button>
+      <fieldset class="mt-4">
+        <legend class="sr-only">Quick filters</legend>
+        <div class="flex flex-wrap gap-2 text-sm">
+          <label class="cursor-pointer"><input type="checkbox" class="peer sr-only"><span class="inline-block px-3 py-1.5 rounded-full border border-line peer-checked:bg-brand-100 peer-checked:border-brand-600 peer-focus-visible:ring-2">Near me</span></label>
+          <label class="cursor-pointer"><input type="checkbox" class="peer sr-only"><span class="inline-block px-3 py-1.5 rounded-full border border-line peer-checked:bg-brand-100 peer-checked:border-brand-600">My district</span></label>
+          <label class="cursor-pointer"><input type="checkbox" class="peer sr-only"><span class="inline-block px-3 py-1.5 rounded-full border border-line peer-checked:bg-brand-100 peer-checked:border-brand-600">Donation</span></label>
+          <label class="cursor-pointer"><input type="checkbox" class="peer sr-only"><span class="inline-block px-3 py-1.5 rounded-full border border-line peer-checked:bg-brand-100 peer-checked:border-brand-600">Affordable Access</span></label>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="max-w-6xl mx-auto px-4 py-14">
+  <h2 class="text-2xl sm:text-3xl font-bold">How it works</h2>
+  <p class="mt-2 text-muted">Six steps from sign-up to a completed handover.</p>
+  <ol class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <li class="p-5 rounded-xl border border-line"><span class="inline-grid place-items-center w-8 h-8 rounded-full bg-brand-600 text-white text-sm font-bold">1</span><h3 class="mt-3 font-semibold">Register</h3><p class="text-sm text-muted mt-1">Sign up with a phone number or email and choose your area.</p></li>
+    <li class="p-5 rounded-xl border border-line"><span class="inline-grid place-items-center w-8 h-8 rounded-full bg-brand-600 text-white text-sm font-bold">2</span><h3 class="mt-3 font-semibold">Search or list</h3><p class="text-sm text-muted mt-1">Look for a medicine, post a request, or list one you can give.</p></li>
+    <li class="p-5 rounded-xl border border-line"><span class="inline-grid place-items-center w-8 h-8 rounded-full bg-brand-600 text-white text-sm font-bold">3</span><h3 class="mt-3 font-semibold">Get matched</h3><p class="text-sm text-muted mt-1">Requests are compared with available listings near you.</p></li>
+    <li class="p-5 rounded-xl border border-line"><span class="inline-grid place-items-center w-8 h-8 rounded-full bg-brand-600 text-white text-sm font-bold">4</span><h3 class="mt-3 font-semibold">Verify when required</h3><p class="text-sm text-muted mt-1">Some medicines need a prescription check by an authorized reviewer.</p></li>
+    <li class="p-5 rounded-xl border border-line"><span class="inline-grid place-items-center w-8 h-8 rounded-full bg-brand-600 text-white text-sm font-bold">5</span><h3 class="mt-3 font-semibold">Connect</h3><p class="text-sm text-muted mt-1">Chat privately inside the platform. No phone numbers shared.</p></li>
+    <li class="p-5 rounded-xl border border-line"><span class="inline-grid place-items-center w-8 h-8 rounded-full bg-brand-600 text-white text-sm font-bold">6</span><h3 class="mt-3 font-semibold">Complete</h3><p class="text-sm text-muted mt-1">Arrange a safe handover, then mark the exchange complete.</p></li>
+  </ol>
+</section>
+
+<!-- ============ DONATE + REQUEST ============ -->
+<section class="bg-canvas border-y border-line">
+  <div class="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-6">
+    <div class="rounded-2xl bg-brand-900 text-white p-8">
+      <h2 class="text-2xl font-bold">Have unused eligible medicine?</h2>
+      <p class="mt-3 text-brand-100">Sealed, in-date medicine in good condition can help someone nearby. List it as a donation in a few minutes.</p>
+      <a href="listing-create.html" class="inline-block mt-6 px-6 py-3 rounded-lg bg-white text-brand-900 font-semibold hover:bg-brand-50">Donate Medicine</a>
+    </div>
+    <div class="rounded-2xl bg-white border border-line p-8">
+      <h2 class="text-2xl font-bold">Can't find the medicine you need?</h2>
+      <p class="mt-3 text-muted">Post a request. When a matching listing appears in your area, you will be notified.</p>
+      <a href="request-create.html" class="inline-block mt-6 px-6 py-3 rounded-lg bg-brand-600 text-white font-semibold hover:bg-brand-700">Create a Request</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST & SAFETY ============ -->
+<section class="max-w-6xl mx-auto px-4 py-14">
+  <h2 class="text-2xl sm:text-3xl font-bold">Built around privacy and safety</h2>
+  <p class="mt-2 text-muted max-w-2xl">These are the rules the platform is designed around. Final policies will follow applicable Bangladesh regulations.</p>
+  <ul class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <li class="p-5 rounded-xl border border-line"><h3 class="font-semibold">Private profiles</h3><p class="text-sm text-muted mt-1">Others see only your name, photo and a trust badge. Never your phone, email or address.</p></li>
+    <li class="p-5 rounded-xl border border-line"><h3 class="font-semibold">In-platform chat</h3><p class="text-sm text-muted mt-1">Talk to the other person without sharing contact details.</p></li>
+    <li class="p-5 rounded-xl border border-line"><h3 class="font-semibold">Verification workflow</h3><p class="text-sm text-muted mt-1">Prescriptions go to an authorized reviewer, not to the donor. The donor sees only the result.</p></li>
+    <li class="p-5 rounded-xl border border-line"><h3 class="font-semibold">Reporting</h3><p class="text-sm text-muted mt-1">Report a listing or user. Admins review and record every decision.</p></li>
+    <li class="p-5 rounded-xl border border-line"><h3 class="font-semibold">Controlled listings</h3><p class="text-sm text-muted mt-1">Expired, damaged or unidentified medicine cannot be listed.</p></li>
+    <li class="p-5 rounded-xl bg-warm-100 text-warm-700"><h3 class="font-semibold">Not medical advice</h3><p class="text-sm mt-1">This platform does not diagnose or recommend treatment. Ask a doctor or pharmacist before taking any medicine.</p></li>
+  </ul>
+  <a href="safety.html" class="inline-block mt-6 font-semibold text-brand-700 underline underline-offset-4">Read the safety guidelines</a>
+</section>
+
+<!-- ============ LOCATION + MATCHING ============ -->
+<section class="bg-canvas border-y border-line">
+  <div class="max-w-6xl mx-auto px-4 py-14 grid lg:grid-cols-2 gap-10">
+    <div>
+      <h2 class="text-2xl font-bold">Search by your area</h2>
+      <p class="mt-2 text-muted">Narrow results from division down to upazila, or search all of Bangladesh.</p>
+      <div class="mt-6 flex flex-col sm:flex-row sm:items-center gap-3 text-sm font-semibold">
+        <span class="px-4 py-3 rounded-lg bg-white border border-line">Division<span class="block font-normal text-muted">Dhaka</span></span>
+        <span class="hidden sm:block text-muted" aria-hidden="true">&rarr;</span>
+        <span class="px-4 py-3 rounded-lg bg-white border border-line">District<span class="block font-normal text-muted">Dhaka</span></span>
+        <span class="hidden sm:block text-muted" aria-hidden="true">&rarr;</span>
+        <span class="px-4 py-3 rounded-lg bg-brand-100 border border-brand-600">Upazila<span class="block font-normal text-muted">Dhanmondi</span></span>
+      </div>
+    </div>
+    <div>
+      <h2 class="text-2xl font-bold">Smarter matching</h2>
+      <p class="mt-2 text-muted">Different wording, same medicine. Our matching feature (coming in a later phase) will compare your request to listings and rank them by relevance.</p>
+      <div class="mt-6 flex flex-col sm:flex-row sm:items-center gap-3 text-sm">
+        <span class="px-4 py-3 rounded-lg bg-white border border-line">"I need Napa 500"</span>
+        <span class="hidden sm:block text-muted" aria-hidden="true">&rarr;</span>
+        <span class="px-4 py-3 rounded-lg bg-brand-600 text-white font-semibold">Matching</span>
+        <span class="hidden sm:block text-muted" aria-hidden="true">&rarr;</span>
+        <span class="px-4 py-3 rounded-lg bg-white border border-line">Napa Paracetamol 500mg<span class="block text-muted">Match relevance: 92%</span></span>
+      </div>
+      <p class="mt-3 text-xs text-muted">Match relevance shows how closely a listing fits your search. It is not a measure of medical suitability.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SAMPLE LISTINGS (component: MedicineCard, mock data) ============ -->
+<section class="max-w-6xl mx-auto px-4 py-14">
+  <div class="flex items-end justify-between gap-4">
+    <h2 class="text-2xl sm:text-3xl font-bold">Recently listed</h2>
+    <a href="browse.html" class="text-sm font-semibold text-brand-700 underline underline-offset-4">Browse all</a>
+  </div>
+  <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <article class="rounded-xl border border-line p-5">
+      <div class="flex items-start justify-between gap-2"><h3 class="font-bold">Napa 500</h3>
+        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-green-100 text-green-800">&#10003; Available</span></div>
+      <p class="text-sm text-muted">Paracetamol &middot; 500 mg &middot; Tablet</p>
+      <dl class="mt-3 text-sm grid grid-cols-2 gap-1"><dt class="text-muted">Quantity</dt><dd>20 tablets</dd><dt class="text-muted">Area</dt><dd>Dhanmondi, Dhaka</dd></dl>
+      <div class="mt-3 flex items-center justify-between"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-brand-100 text-brand-700">Donation</span><a href="medicine-details.html" class="text-sm font-semibold text-brand-700">View details</a></div>
+    </article>
+    <article class="rounded-xl border border-line p-5">
+      <div class="flex items-start justify-between gap-2"><h3 class="font-bold">Seclo 20</h3>
+        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800">&#9679; Reserved</span></div>
+      <p class="text-sm text-muted">Omeprazole &middot; 20 mg &middot; Capsule</p>
+      <dl class="mt-3 text-sm grid grid-cols-2 gap-1"><dt class="text-muted">Quantity</dt><dd>14 capsules</dd><dt class="text-muted">Area</dt><dd>Sylhet Sadar, Sylhet</dd></dl>
+      <div class="mt-3 flex items-center justify-between"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-warm-100 text-warm-700">Affordable Access</span><a href="medicine-details.html" class="text-sm font-semibold text-brand-700">View details</a></div>
+    </article>
+    <article class="rounded-xl border border-line p-5 sm:col-span-2 lg:col-span-1">
+      <div class="flex items-start justify-between gap-2"><h3 class="font-bold">Ace Syrup</h3>
+        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-green-100 text-green-800">&#10003; Available</span></div>
+      <p class="text-sm text-muted">Paracetamol &middot; 120 mg/5 ml &middot; Syrup</p>
+      <dl class="mt-3 text-sm grid grid-cols-2 gap-1"><dt class="text-muted">Quantity</dt><dd>1 bottle</dd><dt class="text-muted">Area</dt><dd>Kotwali, Chattogram</dd></dl>
+      <div class="mt-3 flex items-center justify-between"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-brand-100 text-brand-700">Donation</span><a href="medicine-details.html" class="text-sm font-semibold text-brand-700">View details</a></div>
+    </article>
+  </div>
+  <p class="mt-3 text-xs text-muted">Sample data for design preview only.</p>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-brand-900 text-brand-100">
+  <div class="max-w-6xl mx-auto px-4 py-10 grid sm:grid-cols-3 gap-8">
+    <div>
+      <p class="font-bold text-white">Medicine Donor Connect BD</p>
+      <p class="mt-2 text-sm">A university capstone prototype. Not a licensed pharmacy or medicine marketplace.</p>
+    </div>
+    <nav aria-label="Footer" class="grid grid-cols-2 gap-2 text-sm">
+      <a href="about.html" class="hover:underline">About</a><a href="how-it-works.html" class="hover:underline">How It Works</a>
+      <a href="safety.html" class="hover:underline">Safety</a><a href="privacy.html" class="hover:underline">Privacy</a>
+      <a href="terms.html" class="hover:underline">Terms</a><a href="contact.html" class="hover:underline">Contact</a>
+    </nav>
+    <div class="text-sm"><p class="text-white font-semibold">Follow us</p>
+      <p class="mt-2 flex gap-4"><a href="#" class="hover:underline">Facebook</a><a href="#" class="hover:underline">LinkedIn</a><a href="#" class="hover:underline">YouTube</a></p>
+    </div>
+  </div>
+  <p class="border-t border-white/15 text-center text-xs py-4">&copy; 2026 Medicine Donor Connect BD. All rights reserved.</p>
+</footer>
+
+<script>
+  const b = document.getElementById('menuBtn'), m = document.getElementById('mobileNav');
+  b.addEventListener('click', () => {
+    const open = m.classList.toggle('hidden') === false;
+    b.setAttribute('aria-expanded', open);
+    b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+</script>
+</body>
+</html>

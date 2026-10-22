@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Find Medicine | Medicine Donor Connect BD</title>
+<script src="https://cdn.tailwindcss.com"></script><script src="components.js"></script></head>
+<body class="bg-white text-ink font-sans antialiased">
+<div data-header="find"></div>
+<main id="main">
+<section class="bg-canvas border-b border-line"><div class="max-w-6xl mx-auto px-4 py-8">
+  <h1 class="text-2xl sm:text-4xl font-extrabold text-brand-900">Find Medicine</h1>
+  <p class="mt-1 text-muted">Browse eligible medicines shared by people near you.</p>
+  <form action="search-results.html" role="search" class="mt-5 grid gap-3 md:grid-cols-[1fr_220px_auto]">
+    <div><label for="q" class="sr-only">Search medicine, generic name or brand</label>
+    <input id="q" name="q" type="search" placeholder="Search medicine, generic name or brand" class="w-full rounded-lg border border-line px-4 py-3 text-lg focus:border-brand-600"></div>
+    <div><label for="loc" class="sr-only">Location</label>
+    <select id="loc" name="loc" class="w-full rounded-lg border border-line px-3 py-3 bg-white"><option>Anywhere in Bangladesh</option><option>Near me</option><option>My district</option></select></div>
+    <button class="px-8 py-3 rounded-lg bg-brand-600 text-white font-semibold hover:bg-brand-700">Search</button>
+  </form></div></section>
+
+<div class="max-w-6xl mx-auto px-4 py-8 grid lg:grid-cols-[260px_1fr] gap-8">
+  <!-- Filters: sidebar on desktop, full-screen drawer on mobile -->
+  <aside id="filters" class="hidden lg:block" aria-label="Filters">
+    <div class="flex items-center justify-between lg:hidden mb-4"><h2 class="text-xl font-bold">Filters</h2><button type="button" id="closeF" class="px-3 py-2 rounded-lg border border-line font-semibold">Close</button></div>
+    <h2 class="hidden lg:block font-bold mb-3">Filters</h2>
+    <form class="space-y-5 text-sm">
+      <div><label for="div" class="font-medium">Division</label><select id="div" class="mt-1 w-full rounded-lg border border-line px-3 py-2.5 bg-white"><option>All divisions</option><option>Dhaka</option><option>Chattogram</option><option>Sylhet</option><option>Rajshahi</option><option>Khulna</option></select></div>
+      <div><label for="dist" class="font-medium">District</label><select id="dist" class="mt-1 w-full rounded-lg border border-line px-3 py-2.5 bg-white"><option>All districts</option></select></div>
+      <div><label for="upz" class="font-medium">Upazila</label><select id="upz" class="mt-1 w-full rounded-lg border border-line px-3 py-2.5 bg-white"><option>All upazilas</option></select></div>
+      <fieldset><legend class="font-medium">Listing type</legend>
+        <label class="flex items-center gap-2 mt-2"><input type="checkbox" class="w-4 h-4 accent-brand-600"> Donation</label>
+        <label class="flex items-center gap-2 mt-2"><input type="checkbox" class="w-4 h-4 accent-brand-600"> Affordable Access</label></fieldset>
+      <label class="flex items-center gap-2 font-medium"><input type="checkbox" checked class="w-4 h-4 accent-brand-600"> Available only</label>
+      <div><label for="form" class="font-medium">Medicine form</label><select id="form" class="mt-1 w-full rounded-lg border border-line px-3 py-2.5 bg-white"><option>Any form</option><option>Tablet</option><option>Capsule</option><option>Syrup</option><option>Ointment</option></select></div>
+      <div><label for="str" class="font-medium">Strength</label><input id="str" placeholder="e.g. 500 mg" class="mt-1 w-full rounded-lg border border-line px-3 py-2.5"></div>
+      <div class="flex gap-2"><button type="button" class="flex-1 py-2.5 rounded-lg bg-brand-600 text-white font-semibold hover:bg-brand-700">Apply filters</button><button type="reset" class="px-4 py-2.5 rounded-lg border border-line font-semibold">Clear</button></div>
+    </form>
+  </aside>
+
+  <section aria-labelledby="rh">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <h2 id="rh" class="font-semibold">124 medicines listed</h2>
+      <div class="flex items-center gap-2">
+        <button type="button" id="openF" class="lg:hidden px-4 py-2 rounded-lg border border-brand-600 text-brand-700 font-semibold">Filters</button>
+        <label for="sort" class="sr-only">Sort by</label>
+        <select id="sort" class="rounded-lg border border-line px-3 py-2 text-sm bg-white"><option>Sort: Relevance</option><option>Nearest</option><option>Newest</option><option>Availability</option><option>Recommended Match (coming later)</option></select>
+        <div class="hidden sm:flex rounded-lg border border-line overflow-hidden text-sm" role="group" aria-label="View">
+          <button type="button" data-view="grid" aria-pressed="true" class="px-3 py-2 bg-brand-100 font-semibold">Grid</button>
+          <button type="button" data-view="list" aria-pressed="false" class="px-3 py-2">List</button></div>
+      </div>
+    </div>
+    <div id="grid" class="mt-5 grid sm:grid-cols-2 xl:grid-cols-3 gap-4" data-cards="0-6"></div>
+
+    <nav aria-label="Pagination" class="mt-8 flex justify-center gap-1 text-sm">
+      <a href="#" class="px-3 py-2 rounded-lg border border-line text-muted" aria-disabled="true">Previous</a>
+      <a href="#" aria-current="page" class="px-3 py-2 rounded-lg bg-brand-600 text-white font-semibold">1</a>
+      <a href="#" class="px-3 py-2 rounded-lg border border-line">2</a><a href="#" class="px-3 py-2 rounded-lg border border-line">3</a>
+      <a href="#" class="px-3 py-2 rounded-lg border border-line">Next</a></nav>
+
+    <!-- Empty state (shown when no results; static example) -->
+    <div class="mt-12 rounded-xl border border-dashed border-line bg-canvas p-8 text-center">
+      <p class="font-semibold">No eligible medicine matches your current search.</p>
+      <p class="text-sm text-muted mt-1">Example empty state. Post a request and we will notify you when a match appears.</p>
+      <a href="request-create.html" class="inline-block mt-4 px-5 py-2.5 rounded-lg bg-brand-600 text-white font-semibold hover:bg-brand-700">Create a Request</a></div>
+  </section>
+</div>
+</main>
+<div data-footer></div>
+<script>
+  const f = document.getElementById('filters');
+  document.getElementById('openF').onclick = () => { f.className = 'fixed inset-0 z-40 bg-white overflow-auto p-5 lg:static lg:p-0 lg:block'; };
+  document.getElementById('closeF').onclick = () => { f.className = 'hidden lg:block'; };
+  document.querySelectorAll('[data-view]').forEach(b => b.onclick = () => {
+    const list = b.dataset.view === 'list';
+    document.getElementById('grid').className = 'mt-5 grid gap-4 ' + (list ? 'grid-cols-1' : 'sm:grid-cols-2 xl:grid-cols-3');
+    document.querySelectorAll('[data-view]').forEach(x => { const on = x === b; x.setAttribute('aria-pressed', on); x.classList.toggle('bg-brand-100', on); x.classList.toggle('font-semibold', on); });
+  });
+</script>
+</body></html>
