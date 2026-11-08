@@ -42,3 +42,28 @@ jobs:
 
       - name: Execute tests
         run: php artisan test
+
+  ai-service:
+    runs-on: ubuntu-latest
+    name: AI service (Python)
+    defaults:
+      run:
+        working-directory: ai-service
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      # Unit/API tests use a fake embedder, so the model and PyTorch are not needed here.
+      - name: Install test dependencies
+        run: pip install fastapi==0.162.2 pydantic==2.14.3 pydantic-settings==2.16.2 numpy==2.5.4 pytest==9.2.0 httpx==0.28.1
+
+      - name: Run tests
+        run: python -m pytest -q
+

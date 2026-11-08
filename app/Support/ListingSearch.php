@@ -4,13 +4,18 @@ namespace App\Support;
 
 use App\Enums\ListingStatus;
 use App\Enums\ListingType;
+use App\Enums\MedicineEligibility;
 use App\Http\Requests\MedicineRequestRequest;
 use App\Models\Location;
+use App\Models\Medicine;
 use App\Models\MedicineListing;
+use App\Services\Ai\MedicineText;
+use App\Services\Ai\SemanticRanker;
 use App\Services\MatchingService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -77,6 +82,7 @@ class ListingSearch
         $query->when($f['division'], fn ($q) => $q->where('locations.division', $f['division']))
             ->when($f['district'], fn ($q) => $q->where('locations.district', $f['district']))
             ->when($f['upazila'], fn ($q) => $q->where('locations.upazila', $f['upazila']))
+            ->when($f['medicine_ids'] ?? [], fn ($q, $ids) => $q->whereIn('medicine_listings.medicine_id', $ids))
             ->when($f['type'], fn ($q) => $q->whereIn('medicine_listings.type', $f['type']))
             ->when($f['form'], fn ($q) => $q->where('medicines.dosage_form', $f['form']))
             ->when($f['strength'], fn ($q) => $q->whereRaw("REPLACE(LOWER(medicines.strength), ' ', '') like ?", ['%'.str_replace(' ', '', Str::lower($f['strength'])).'%']))
@@ -96,6 +102,46 @@ class ListingSearch
         };
 
         return $query->orderByDesc('medicine_listings.id')->paginate(self::PER_PAGE)->withQueryString();
+    }
+
+    /**
+     * AI fallback for searches with no keyword results, e.g. misspellings ("paracitamol"),
+     * shorthand or Bangla. Returns up to 3 catalogue medicines the AI considers close enough.
+     * A strength written in the query is a hard filter. Results are shown as clearly labelled
+     * suggestions, never silently.
+     */
+    public static function suggestMedicines(string $q): Collection
+    {
+        $ranker = app(SemanticRanker::class);
+        if (trim($q) === '' || ! $ranker->enabled()) {
+            return collect();
+        }
+        preg_match_all('/\d+(?:\.\d+)?(?:mg|ml|mcg|iu|g)\b/', MatchingService::norm($q), $m);
+        $strengths = $m[0];
+
+        $medicines = Medicine::with('aliases')->where('is_active', true)->where('eligibility', '!=', MedicineEligibility::NotAllowed)->get()
+            ->filter(fn ($med) => ! $strengths || collect($strengths)->every(fn ($s) => str_contains(str_replace(' ', '', MatchingService::norm($med->strength)), $s)))
+            ->keyBy('id');
+
+        $ranked = $ranker->rank($q, $medicines->map(fn ($med) => MedicineText::medicine($med))->all()) ?? [];
+
+        // Same safety rule as request suggestions: only the single best active ingredient, only when it
+        // reaches the threshold AND is clearly ahead of the best different ingredient.
+        $topId = array_key_first($ranked);
+        if ($topId === null || $ranked[$topId]['similarity'] < config('services.ai.identity_threshold')) {
+            return collect();
+        }
+        $generic = MatchingService::norm($medicines[$topId]->generic_name);
+        $runnerUp = collect($ranked)->first(fn ($r, $id) => MatchingService::norm($medicines[$id]->generic_name) !== $generic);
+        if ($runnerUp && $ranked[$topId]['similarity'] - $runnerUp['similarity'] < config('services.ai.identity_margin')) {
+            return collect();
+        }
+
+        return collect($ranked)
+            ->filter(fn ($r, $id) => MatchingService::norm($medicines[$id]->generic_name) === $generic)
+            ->take(3)
+            ->map(fn ($r, $id) => $medicines[$id]->setAttribute('similarity', $r['similarity']))
+            ->values();
     }
 
     /** Split the query into normalised words ("500 mg" -> "500mg"). */

@@ -8,6 +8,7 @@ use App\Models\User;
 use Database\Seeders\LocationSeeder;
 use Database\Seeders\MedicineCatalogueSeeder;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Http;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -17,6 +18,8 @@ abstract class TestCase extends BaseTestCase
 
         // Tests don't need compiled CSS/JS, so they run without `npm run build` (e.g. in CI).
         $this->withoutVite();
+        // No test may reach a real external service (e.g. the AI service). Use Http::fake().
+        Http::preventStrayRequests();
     }
 
     /** Reference data most tests need: locations and the medicine catalogue. */

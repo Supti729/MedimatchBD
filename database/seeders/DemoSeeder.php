@@ -9,6 +9,7 @@ use App\Enums\VerificationStatus;
 use App\Models\Location;
 use App\Models\Medicine;
 use App\Models\Partner;
+use App\Models\Setting;
 use App\Models\User;
 use App\Services\InteractionService;
 use App\Services\ListingService;
@@ -56,6 +57,9 @@ class DemoSeeder extends Seeder
         $tanvir = $make('Tanvir Hasan', null, '+8801811000004', $at('Chattogram', 'Kotwali'), Role::User, false, 45);
         $mithila = $make('Mithila Das', 'mithila@medimatch.test', null, $at('Rajshahi', 'Boalia'), Role::User, true, 100);
         $arif = $make('Arif Chowdhury', 'arif@medimatch.test', null, $at('Khulna', 'Khulna Sadar'), Role::User, false, 60);
+
+        // AI-assisted matching is on for the demo. If ai-service isn't running, matching falls back to keywords.
+        Setting::put(['ai_matching' => true]);
 
         $listings = app(ListingService::class);
         $requests = app(RequestService::class);

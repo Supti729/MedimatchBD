@@ -28,6 +28,20 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /*
+    | Medimatch BD semantic matching service (ai-service/, Python FastAPI).
+    | Only medicine descriptions are ever sent — never names, contact details or notes.
+    | identity_threshold / identity_margin come from ai-service/evaluation (see its README).
+    */
+    'ai' => [
+        'url' => env('AI_SERVICE_URL'),
+        'key' => env('AI_SERVICE_KEY'),
+        'timeout' => (float) env('AI_SERVICE_TIMEOUT', 3),
+        'identity_threshold' => (float) env('AI_IDENTITY_THRESHOLD', 0.86),
+        'identity_margin' => (float) env('AI_IDENTITY_MARGIN', 0.015),
+        'retry_after_seconds' => 60, // after a failure, use keyword matching for this long before trying again
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

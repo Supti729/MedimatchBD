@@ -135,8 +135,8 @@
                 </div>
             </div>
             <div>
-                <h2 class="text-2xl font-extrabold text-brand-900">Smarter matching <span class="align-middle text-xs font-semibold text-muted">(coming in Part 3)</span></h2>
-                <p class="mt-2 text-muted">Different wording, same medicine. AI-assisted matching will compare a request with eligible listings and rank them by how closely the descriptions fit. Strict checks on medicine identity, strength and form always apply first.</p>
+                <h2 class="text-2xl font-extrabold text-brand-900">Smarter matching</h2>
+                <p class="mt-2 text-muted">Different wording, same medicine. A multilingual AI model understands misspellings, pharmacy shorthand and Bangla, and ranks eligible listings by how closely they fit. Strict checks on medicine identity, strength and form always apply first.</p>
                 <div class="mt-6 flex flex-col gap-3 text-sm sm:flex-row sm:items-center">
                     <span class="card px-4 py-3">"I need paracetamol 500 mg tablets"</span>
                     <x-icon name="arrow-right" class="hidden text-muted sm:block" />

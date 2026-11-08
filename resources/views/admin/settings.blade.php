@@ -13,7 +13,12 @@
         <x-section title="Requests and matching">
             <div class="space-y-4">
                 <x-form.input name="request_expiry_days" type="number" label="New requests expire after (days)" :value="$settings['request_expiry_days']" min="7" max="90" required />
-                <label class="flex items-start gap-3 opacity-60"><input type="checkbox" disabled class="mt-0.5 size-5"><span class="text-sm"><span class="font-medium">Use AI-assisted ranking</span><span class="block text-muted">Available after Part 3. Hard eligibility rules always apply first.</span></span></label>
+                <x-form.checkbox name="ai_matching" label="Use AI-assisted matching" :checked="$settings['ai_matching']" hint="Ranks matches by meaning, suggests catalogue medicines for misspelled or Bangla requests and searches. Identity, strength, form, eligibility and availability rules always apply first. If the service is unreachable, keyword matching is used automatically." />
+                <div @class(['flex items-start gap-3 rounded-lg border px-4 py-3 text-sm', 'border-green-200 bg-green-50 text-green-900' => $aiHealth['ok'], 'border-warm-500/40 bg-warm-100 text-warm-700' => ! $aiHealth['ok']])>
+                    <x-icon :name="$aiHealth['ok'] ? 'check' : 'alert'" class="mt-0.5 size-5" />
+                    <div><p class="font-semibold">Matching service: {{ $aiHealth['message'] }}</p>
+                        <p>{{ $aiHealth['model'] ?? '' }}{{ isset($aiHealth['model']) ? ' · ' : '' }}{{ config('services.ai.url') ?: 'no URL set' }}</p></div>
+                </div>
             </div>
         </x-section>
         <x-section title="Delivery channels">

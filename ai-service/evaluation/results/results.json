@@ -1,0 +1,5030 @@
+{
+  "meta": {
+    "run_at": "2026-11-08T13:23:25+00:00",
+    "python": "3.13.18",
+    "machine": "x86_64",
+    "corpus_size": 33,
+    "queries": 56,
+    "positive_queries": 50
+  },
+  "timings": {
+    "multilingual-e5-small": {
+      "load_seconds": 6.2,
+      "ms_per_query": 11.3
+    },
+    "paraphrase-multilingual-MiniLM-L12-v2": {
+      "load_seconds": 2.2,
+      "ms_per_query": 9.3
+    }
+  },
+  "systems": [
+    {
+      "system": "keyword_all_terms",
+      "overall": {
+        "p@5": 0.168,
+        "r@5": 0.507,
+        "mrr": 0.56,
+        "hit@1": 0.56
+      },
+      "by_category": {
+        "brand": {
+          "p@5": 0.2,
+          "r@5": 0.639,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "generic": {
+          "p@5": 0.429,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "natural": {
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0
+        },
+        "abbreviation": {
+          "p@5": 0.32,
+          "r@5": 0.9,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "misspelling": {
+          "p@5": 0.089,
+          "r@5": 0.333,
+          "mrr": 0.333,
+          "hit@1": 0.333
+        },
+        "bangla": {
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0
+        },
+        "strength": {
+          "p@5": 0.24,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "form": {
+          "p@5": 0.15,
+          "r@5": 0.5,
+          "mrr": 0.5,
+          "hit@1": 0.5
+        }
+      },
+      "per_query": [
+        {
+          "q": "Napa 500",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 0.5,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            7
+          ]
+        },
+        {
+          "q": "Seclo 20",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 0.5,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9
+          ]
+        },
+        {
+          "q": "Fexo 120",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            16
+          ]
+        },
+        {
+          "q": "Monas 10",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 0.5,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            20
+          ]
+        },
+        {
+          "q": "Comet 500",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22
+          ]
+        },
+        {
+          "q": "Sergel 20",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 0.3333333333333333,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            13
+          ]
+        },
+        {
+          "q": "paracetamol 500 mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "omeprazole 20mg capsule",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10
+          ]
+        },
+        {
+          "q": "esomeprazole 20",
+          "cat": "generic",
+          "p@5": 0.6,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            12,
+            13,
+            14
+          ]
+        },
+        {
+          "q": "cetirizine 10mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            18,
+            19
+          ]
+        },
+        {
+          "q": "losartan 50 mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            24,
+            25
+          ]
+        },
+        {
+          "q": "azithromycin 500",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27
+          ]
+        },
+        {
+          "q": "amlodipine 5mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31
+          ]
+        },
+        {
+          "q": "I need paracetamol 500 mg tablets",
+          "cat": "natural",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "looking for omeprazole capsules 20 mg",
+          "cat": "natural",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "need oral rehydration saline sachets",
+          "cat": "natural",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "can anyone spare montelukast 10mg",
+          "cat": "natural",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "does someone have a strip of metformin 500",
+          "cat": "natural",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "want amlodipine five mg",
+          "cat": "natural",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "pcm 500 tab",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "napa syp",
+          "cat": "abbreviation",
+          "p@5": 0.2,
+          "r@5": 0.5,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5
+          ]
+        },
+        {
+          "q": "ors",
+          "cat": "abbreviation",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28
+          ]
+        },
+        {
+          "q": "omeprazole 20 cap",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10
+          ]
+        },
+        {
+          "q": "azithro 500",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27
+          ]
+        },
+        {
+          "q": "paracitamol 500",
+          "cat": "misspelling",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "omiprazol 20",
+          "cat": "misspelling",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "esomeprazol 40",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            15
+          ]
+        },
+        {
+          "q": "cetrizine 10",
+          "cat": "misspelling",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "azithromycine 500",
+          "cat": "misspelling",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "montelucast 10",
+          "cat": "misspelling",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "metformine 850",
+          "cat": "misspelling",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "fexofenadin 180",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17
+          ]
+        },
+        {
+          "q": "amlodipin 5",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31
+          ]
+        },
+        {
+          "q": "প্যারাসিটামল ৫০০",
+          "cat": "bangla",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "নাপা ৫০০",
+          "cat": "bangla",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "ওমিপ্রাজল ২০",
+          "cat": "bangla",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "সেকলো ২০",
+          "cat": "bangla",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "মেটফরমিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "খাবার স্যালাইন",
+          "cat": "bangla",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "সেটিরিজিন ১০",
+          "cat": "bangla",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "অ্যাজিথ্রোমাইসিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "omeprazole 40 mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            11,
+            15
+          ]
+        },
+        {
+          "q": "esomeprazole 40mg tablet",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            15
+          ]
+        },
+        {
+          "q": "metformin 850",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            23
+          ]
+        },
+        {
+          "q": "fexofenadine 180mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17
+          ]
+        },
+        {
+          "q": "paracetamol 665 mg",
+          "cat": "strength",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            3,
+            4
+          ]
+        },
+        {
+          "q": "paracetamol syrup",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            6
+          ]
+        },
+        {
+          "q": "paracetamol suspension 120mg/5ml",
+          "cat": "form",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "salbutamol inhaler",
+          "cat": "form",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            33
+          ]
+        },
+        {
+          "q": "paracetamol with caffeine tablet",
+          "cat": "form",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        }
+      ]
+    },
+    {
+      "system": "bm25",
+      "overall": {
+        "p@5": 0.34,
+        "r@5": 0.96,
+        "mrr": 0.878,
+        "hit@1": 0.84
+      },
+      "by_category": {
+        "brand": {
+          "p@5": 0.367,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "generic": {
+          "p@5": 0.429,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "natural": {
+          "p@5": 0.333,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "abbreviation": {
+          "p@5": 0.32,
+          "r@5": 0.8,
+          "mrr": 0.65,
+          "hit@1": 0.6
+        },
+        "misspelling": {
+          "p@5": 0.333,
+          "r@5": 1.0,
+          "mrr": 0.787,
+          "hit@1": 0.667
+        },
+        "bangla": {
+          "p@5": 0.325,
+          "r@5": 0.875,
+          "mrr": 0.698,
+          "hit@1": 0.625
+        },
+        "strength": {
+          "p@5": 0.24,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "form": {
+          "p@5": 0.35,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        }
+      },
+      "per_query": [
+        {
+          "q": "Napa 500",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            5,
+            2
+          ]
+        },
+        {
+          "q": "Seclo 20",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            11,
+            10
+          ]
+        },
+        {
+          "q": "Fexo 120",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            16,
+            17
+          ]
+        },
+        {
+          "q": "Monas 10",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            20,
+            18,
+            19
+          ]
+        },
+        {
+          "q": "Comet 500",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            23,
+            1
+          ]
+        },
+        {
+          "q": "Sergel 20",
+          "cat": "brand",
+          "p@5": 0.6,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            13,
+            9,
+            10
+          ]
+        },
+        {
+          "q": "paracetamol 500 mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "omeprazole 20mg capsule",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            11
+          ]
+        },
+        {
+          "q": "esomeprazole 20",
+          "cat": "generic",
+          "p@5": 0.6,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            12,
+            13,
+            14
+          ]
+        },
+        {
+          "q": "cetirizine 10mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            18,
+            19,
+            20
+          ]
+        },
+        {
+          "q": "losartan 50 mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            24,
+            25
+          ]
+        },
+        {
+          "q": "azithromycin 500",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            1
+          ]
+        },
+        {
+          "q": "amlodipine 5mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31,
+            1
+          ]
+        },
+        {
+          "q": "I need paracetamol 500 mg tablets",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "looking for omeprazole capsules 20 mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            11
+          ]
+        },
+        {
+          "q": "need oral rehydration saline sachets",
+          "cat": "natural",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28
+          ]
+        },
+        {
+          "q": "can anyone spare montelukast 10mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            20,
+            21,
+            18
+          ]
+        },
+        {
+          "q": "does someone have a strip of metformin 500",
+          "cat": "natural",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            23,
+            1
+          ]
+        },
+        {
+          "q": "want amlodipine five mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31
+          ]
+        },
+        {
+          "q": "pcm 500 tab",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "napa syp",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            6,
+            1
+          ]
+        },
+        {
+          "q": "ors",
+          "cat": "abbreviation",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "omeprazole 20 cap",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            11
+          ]
+        },
+        {
+          "q": "azithro 500",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.25,
+          "hit@1": 0.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "paracitamol 500",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "omiprazol 20",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            12
+          ]
+        },
+        {
+          "q": "esomeprazol 40",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 0.5,
+          "hit@1": 0.0,
+          "top3": [
+            11,
+            15
+          ]
+        },
+        {
+          "q": "cetrizine 10",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            18,
+            19,
+            20
+          ]
+        },
+        {
+          "q": "azithromycine 500",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.25,
+          "hit@1": 0.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "montelucast 10",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.3333333333333333,
+          "hit@1": 0.0,
+          "top3": [
+            18,
+            19,
+            20
+          ]
+        },
+        {
+          "q": "metformine 850",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            23
+          ]
+        },
+        {
+          "q": "fexofenadin 180",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17
+          ]
+        },
+        {
+          "q": "amlodipin 5",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31
+          ]
+        },
+        {
+          "q": "প্যারাসিটামল ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "নাপা ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "ওমিপ্রাজল ২০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            12
+          ]
+        },
+        {
+          "q": "সেকলো ২০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            12
+          ]
+        },
+        {
+          "q": "মেটফরমিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 0.3333333333333333,
+          "hit@1": 0.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "খাবার স্যালাইন",
+          "cat": "bangla",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "সেটিরিজিন ১০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            18,
+            19,
+            20
+          ]
+        },
+        {
+          "q": "অ্যাজিথ্রোমাইসিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.25,
+          "hit@1": 0.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "omeprazole 40 mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            11,
+            15,
+            9
+          ]
+        },
+        {
+          "q": "esomeprazole 40mg tablet",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            15,
+            11,
+            12
+          ]
+        },
+        {
+          "q": "metformin 850",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            23,
+            22
+          ]
+        },
+        {
+          "q": "fexofenadine 180mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17,
+            16
+          ]
+        },
+        {
+          "q": "paracetamol 665 mg",
+          "cat": "strength",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            3,
+            4,
+            1
+          ]
+        },
+        {
+          "q": "paracetamol syrup",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            6,
+            1
+          ]
+        },
+        {
+          "q": "paracetamol suspension 120mg/5ml",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            6,
+            1
+          ]
+        },
+        {
+          "q": "salbutamol inhaler",
+          "cat": "form",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            33
+          ]
+        },
+        {
+          "q": "paracetamol with caffeine tablet",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            7,
+            8,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "system": "bm25 + rules",
+      "overall": {
+        "p@5": 0.34,
+        "r@5": 0.96,
+        "mrr": 0.878,
+        "hit@1": 0.84
+      },
+      "by_category": {
+        "brand": {
+          "p@5": 0.367,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "generic": {
+          "p@5": 0.429,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "natural": {
+          "p@5": 0.333,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "abbreviation": {
+          "p@5": 0.32,
+          "r@5": 0.8,
+          "mrr": 0.65,
+          "hit@1": 0.6
+        },
+        "misspelling": {
+          "p@5": 0.333,
+          "r@5": 1.0,
+          "mrr": 0.787,
+          "hit@1": 0.667
+        },
+        "bangla": {
+          "p@5": 0.325,
+          "r@5": 0.875,
+          "mrr": 0.698,
+          "hit@1": 0.625
+        },
+        "strength": {
+          "p@5": 0.24,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "form": {
+          "p@5": 0.35,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        }
+      },
+      "per_query": [
+        {
+          "q": "Napa 500",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            5,
+            2
+          ]
+        },
+        {
+          "q": "Seclo 20",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            11,
+            10
+          ]
+        },
+        {
+          "q": "Fexo 120",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            16,
+            17
+          ]
+        },
+        {
+          "q": "Monas 10",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            20,
+            18,
+            19
+          ]
+        },
+        {
+          "q": "Comet 500",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            23,
+            1
+          ]
+        },
+        {
+          "q": "Sergel 20",
+          "cat": "brand",
+          "p@5": 0.6,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            13,
+            9,
+            10
+          ]
+        },
+        {
+          "q": "paracetamol 500 mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "omeprazole 20mg capsule",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10
+          ]
+        },
+        {
+          "q": "esomeprazole 20",
+          "cat": "generic",
+          "p@5": 0.6,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            12,
+            13,
+            14
+          ]
+        },
+        {
+          "q": "cetirizine 10mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            18,
+            19,
+            20
+          ]
+        },
+        {
+          "q": "losartan 50 mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            24,
+            25
+          ]
+        },
+        {
+          "q": "azithromycin 500",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            1
+          ]
+        },
+        {
+          "q": "amlodipine 5mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31
+          ]
+        },
+        {
+          "q": "I need paracetamol 500 mg tablets",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "looking for omeprazole capsules 20 mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10
+          ]
+        },
+        {
+          "q": "need oral rehydration saline sachets",
+          "cat": "natural",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28
+          ]
+        },
+        {
+          "q": "can anyone spare montelukast 10mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            20,
+            21,
+            18
+          ]
+        },
+        {
+          "q": "does someone have a strip of metformin 500",
+          "cat": "natural",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            23,
+            1
+          ]
+        },
+        {
+          "q": "want amlodipine five mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31
+          ]
+        },
+        {
+          "q": "pcm 500 tab",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "napa syp",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            6
+          ]
+        },
+        {
+          "q": "ors",
+          "cat": "abbreviation",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "omeprazole 20 cap",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            11
+          ]
+        },
+        {
+          "q": "azithro 500",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.25,
+          "hit@1": 0.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "paracitamol 500",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "omiprazol 20",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            12
+          ]
+        },
+        {
+          "q": "esomeprazol 40",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 0.5,
+          "hit@1": 0.0,
+          "top3": [
+            11,
+            15
+          ]
+        },
+        {
+          "q": "cetrizine 10",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            18,
+            19,
+            20
+          ]
+        },
+        {
+          "q": "azithromycine 500",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.25,
+          "hit@1": 0.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "montelucast 10",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.3333333333333333,
+          "hit@1": 0.0,
+          "top3": [
+            18,
+            19,
+            20
+          ]
+        },
+        {
+          "q": "metformine 850",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            23
+          ]
+        },
+        {
+          "q": "fexofenadin 180",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17
+          ]
+        },
+        {
+          "q": "amlodipin 5",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31
+          ]
+        },
+        {
+          "q": "প্যারাসিটামল ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "নাপা ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "ওমিপ্রাজল ২০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            12
+          ]
+        },
+        {
+          "q": "সেকলো ২০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            12
+          ]
+        },
+        {
+          "q": "মেটফরমিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 0.3333333333333333,
+          "hit@1": 0.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "খাবার স্যালাইন",
+          "cat": "bangla",
+          "p@5": 0.0,
+          "r@5": 0.0,
+          "mrr": 0.0,
+          "hit@1": 0.0,
+          "top3": []
+        },
+        {
+          "q": "সেটিরিজিন ১০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            18,
+            19,
+            20
+          ]
+        },
+        {
+          "q": "অ্যাজিথ্রোমাইসিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.25,
+          "hit@1": 0.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "omeprazole 40 mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            11,
+            15
+          ]
+        },
+        {
+          "q": "esomeprazole 40mg tablet",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            15
+          ]
+        },
+        {
+          "q": "metformin 850",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            23,
+            22
+          ]
+        },
+        {
+          "q": "fexofenadine 180mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17
+          ]
+        },
+        {
+          "q": "paracetamol 665 mg",
+          "cat": "strength",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            3,
+            4
+          ]
+        },
+        {
+          "q": "paracetamol syrup",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            6
+          ]
+        },
+        {
+          "q": "paracetamol suspension 120mg/5ml",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            6
+          ]
+        },
+        {
+          "q": "salbutamol inhaler",
+          "cat": "form",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            33
+          ]
+        },
+        {
+          "q": "paracetamol with caffeine tablet",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            7,
+            8,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "system": "multilingual-e5-small",
+      "overall": {
+        "p@5": 0.344,
+        "r@5": 0.99,
+        "mrr": 0.99,
+        "hit@1": 0.98
+      },
+      "by_category": {
+        "brand": {
+          "p@5": 0.333,
+          "r@5": 0.917,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "generic": {
+          "p@5": 0.429,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "natural": {
+          "p@5": 0.333,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "abbreviation": {
+          "p@5": 0.36,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "misspelling": {
+          "p@5": 0.333,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "bangla": {
+          "p@5": 0.35,
+          "r@5": 1.0,
+          "mrr": 0.938,
+          "hit@1": 0.875
+        },
+        "strength": {
+          "p@5": 0.24,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "form": {
+          "p@5": 0.35,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        }
+      },
+      "per_query": [
+        {
+          "q": "Napa 500",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 0.5,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            7,
+            22
+          ]
+        },
+        {
+          "q": "Seclo 20",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            13,
+            10
+          ]
+        },
+        {
+          "q": "Fexo 120",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            16,
+            17,
+            6
+          ]
+        },
+        {
+          "q": "Monas 10",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            20,
+            21,
+            32
+          ]
+        },
+        {
+          "q": "Comet 500",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            23,
+            1
+          ]
+        },
+        {
+          "q": "Sergel 20",
+          "cat": "brand",
+          "p@5": 0.6,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            13,
+            9,
+            14
+          ]
+        },
+        {
+          "q": "paracetamol 500 mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "omeprazole 20mg capsule",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            12
+          ]
+        },
+        {
+          "q": "esomeprazole 20",
+          "cat": "generic",
+          "p@5": 0.6,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            12,
+            14,
+            13
+          ]
+        },
+        {
+          "q": "cetirizine 10mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            19,
+            18,
+            20
+          ]
+        },
+        {
+          "q": "losartan 50 mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            25,
+            24,
+            22
+          ]
+        },
+        {
+          "q": "azithromycin 500",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            2
+          ]
+        },
+        {
+          "q": "amlodipine 5mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31,
+            22
+          ]
+        },
+        {
+          "q": "I need paracetamol 500 mg tablets",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "looking for omeprazole capsules 20 mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            12
+          ]
+        },
+        {
+          "q": "need oral rehydration saline sachets",
+          "cat": "natural",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28,
+            33,
+            21
+          ]
+        },
+        {
+          "q": "can anyone spare montelukast 10mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            21,
+            20,
+            28
+          ]
+        },
+        {
+          "q": "does someone have a strip of metformin 500",
+          "cat": "natural",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            23,
+            26
+          ]
+        },
+        {
+          "q": "want amlodipine five mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31,
+            22
+          ]
+        },
+        {
+          "q": "pcm 500 tab",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "napa syp",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            3,
+            1
+          ]
+        },
+        {
+          "q": "ors",
+          "cat": "abbreviation",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28,
+            24,
+            33
+          ]
+        },
+        {
+          "q": "omeprazole 20 cap",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            12
+          ]
+        },
+        {
+          "q": "azithro 500",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            2
+          ]
+        },
+        {
+          "q": "paracitamol 500",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            2,
+            1,
+            22
+          ]
+        },
+        {
+          "q": "omiprazol 20",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            10,
+            9,
+            12
+          ]
+        },
+        {
+          "q": "esomeprazol 40",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            15,
+            11,
+            14
+          ]
+        },
+        {
+          "q": "cetrizine 10",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            19,
+            18,
+            21
+          ]
+        },
+        {
+          "q": "azithromycine 500",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            2
+          ]
+        },
+        {
+          "q": "montelucast 10",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            20,
+            21,
+            18
+          ]
+        },
+        {
+          "q": "metformine 850",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            23,
+            22,
+            4
+          ]
+        },
+        {
+          "q": "fexofenadin 180",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17,
+            16,
+            23
+          ]
+        },
+        {
+          "q": "amlodipin 5",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31,
+            22
+          ]
+        },
+        {
+          "q": "প্যারাসিটামল ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "নাপা ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            22,
+            7
+          ]
+        },
+        {
+          "q": "ওমিপ্রাজল ২০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            10,
+            9,
+            14
+          ]
+        },
+        {
+          "q": "সেকলো ২০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.5,
+          "hit@1": 0.0,
+          "top3": [
+            14,
+            9,
+            13
+          ]
+        },
+        {
+          "q": "মেটফরমিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            1,
+            26
+          ]
+        },
+        {
+          "q": "খাবার স্যালাইন",
+          "cat": "bangla",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28,
+            19,
+            29
+          ]
+        },
+        {
+          "q": "সেটিরিজিন ১০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            19,
+            18,
+            32
+          ]
+        },
+        {
+          "q": "অ্যাজিথ্রোমাইসিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            22
+          ]
+        },
+        {
+          "q": "omeprazole 40 mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            11,
+            15,
+            9
+          ]
+        },
+        {
+          "q": "esomeprazole 40mg tablet",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            15,
+            12,
+            13
+          ]
+        },
+        {
+          "q": "metformin 850",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            23,
+            22,
+            4
+          ]
+        },
+        {
+          "q": "fexofenadine 180mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17,
+            16,
+            4
+          ]
+        },
+        {
+          "q": "paracetamol 665 mg",
+          "cat": "strength",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            4,
+            3,
+            2
+          ]
+        },
+        {
+          "q": "paracetamol syrup",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            6,
+            5,
+            4
+          ]
+        },
+        {
+          "q": "paracetamol suspension 120mg/5ml",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            6,
+            5,
+            2
+          ]
+        },
+        {
+          "q": "salbutamol inhaler",
+          "cat": "form",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            33,
+            31,
+            29
+          ]
+        },
+        {
+          "q": "paracetamol with caffeine tablet",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            8,
+            7,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "system": "multilingual-e5-small + rules",
+      "overall": {
+        "p@5": 0.344,
+        "r@5": 0.99,
+        "mrr": 0.99,
+        "hit@1": 0.98
+      },
+      "by_category": {
+        "brand": {
+          "p@5": 0.333,
+          "r@5": 0.917,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "generic": {
+          "p@5": 0.429,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "natural": {
+          "p@5": 0.333,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "abbreviation": {
+          "p@5": 0.36,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "misspelling": {
+          "p@5": 0.333,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "bangla": {
+          "p@5": 0.35,
+          "r@5": 1.0,
+          "mrr": 0.938,
+          "hit@1": 0.875
+        },
+        "strength": {
+          "p@5": 0.24,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "form": {
+          "p@5": 0.35,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        }
+      },
+      "per_query": [
+        {
+          "q": "Napa 500",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 0.5,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            7,
+            22
+          ]
+        },
+        {
+          "q": "Seclo 20",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            13,
+            10
+          ]
+        },
+        {
+          "q": "Fexo 120",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            16,
+            17,
+            6
+          ]
+        },
+        {
+          "q": "Monas 10",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            20,
+            21,
+            32
+          ]
+        },
+        {
+          "q": "Comet 500",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            23,
+            1
+          ]
+        },
+        {
+          "q": "Sergel 20",
+          "cat": "brand",
+          "p@5": 0.6,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            13,
+            9,
+            14
+          ]
+        },
+        {
+          "q": "paracetamol 500 mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "omeprazole 20mg capsule",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10
+          ]
+        },
+        {
+          "q": "esomeprazole 20",
+          "cat": "generic",
+          "p@5": 0.6,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            12,
+            14,
+            13
+          ]
+        },
+        {
+          "q": "cetirizine 10mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            19,
+            18,
+            20
+          ]
+        },
+        {
+          "q": "losartan 50 mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            25,
+            24
+          ]
+        },
+        {
+          "q": "azithromycin 500",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            2
+          ]
+        },
+        {
+          "q": "amlodipine 5mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31
+          ]
+        },
+        {
+          "q": "I need paracetamol 500 mg tablets",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "looking for omeprazole capsules 20 mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10
+          ]
+        },
+        {
+          "q": "need oral rehydration saline sachets",
+          "cat": "natural",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28
+          ]
+        },
+        {
+          "q": "can anyone spare montelukast 10mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            21,
+            20,
+            32
+          ]
+        },
+        {
+          "q": "does someone have a strip of metformin 500",
+          "cat": "natural",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            23,
+            26
+          ]
+        },
+        {
+          "q": "want amlodipine five mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31,
+            22
+          ]
+        },
+        {
+          "q": "pcm 500 tab",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "napa syp",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            6
+          ]
+        },
+        {
+          "q": "ors",
+          "cat": "abbreviation",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28,
+            24,
+            33
+          ]
+        },
+        {
+          "q": "omeprazole 20 cap",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            11
+          ]
+        },
+        {
+          "q": "azithro 500",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            2
+          ]
+        },
+        {
+          "q": "paracitamol 500",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            2,
+            1,
+            22
+          ]
+        },
+        {
+          "q": "omiprazol 20",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            10,
+            9,
+            12
+          ]
+        },
+        {
+          "q": "esomeprazol 40",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            15,
+            11,
+            14
+          ]
+        },
+        {
+          "q": "cetrizine 10",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            19,
+            18,
+            21
+          ]
+        },
+        {
+          "q": "azithromycine 500",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            2
+          ]
+        },
+        {
+          "q": "montelucast 10",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            20,
+            21,
+            18
+          ]
+        },
+        {
+          "q": "metformine 850",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            23,
+            22,
+            4
+          ]
+        },
+        {
+          "q": "fexofenadin 180",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17,
+            16,
+            23
+          ]
+        },
+        {
+          "q": "amlodipin 5",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31,
+            22
+          ]
+        },
+        {
+          "q": "প্যারাসিটামল ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            22
+          ]
+        },
+        {
+          "q": "নাপা ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            22,
+            7
+          ]
+        },
+        {
+          "q": "ওমিপ্রাজল ২০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            10,
+            9,
+            14
+          ]
+        },
+        {
+          "q": "সেকলো ২০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.5,
+          "hit@1": 0.0,
+          "top3": [
+            14,
+            9,
+            13
+          ]
+        },
+        {
+          "q": "মেটফরমিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            1,
+            26
+          ]
+        },
+        {
+          "q": "খাবার স্যালাইন",
+          "cat": "bangla",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28,
+            19,
+            29
+          ]
+        },
+        {
+          "q": "সেটিরিজিন ১০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            19,
+            18,
+            32
+          ]
+        },
+        {
+          "q": "অ্যাজিথ্রোমাইসিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            22
+          ]
+        },
+        {
+          "q": "omeprazole 40 mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            11,
+            15
+          ]
+        },
+        {
+          "q": "esomeprazole 40mg tablet",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            15
+          ]
+        },
+        {
+          "q": "metformin 850",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            23,
+            22,
+            4
+          ]
+        },
+        {
+          "q": "fexofenadine 180mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17
+          ]
+        },
+        {
+          "q": "paracetamol 665 mg",
+          "cat": "strength",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            4,
+            3
+          ]
+        },
+        {
+          "q": "paracetamol syrup",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            6,
+            5
+          ]
+        },
+        {
+          "q": "paracetamol suspension 120mg/5ml",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            6,
+            5
+          ]
+        },
+        {
+          "q": "salbutamol inhaler",
+          "cat": "form",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            33
+          ]
+        },
+        {
+          "q": "paracetamol with caffeine tablet",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            8,
+            7,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "system": "paraphrase-multilingual-MiniLM-L12-v2",
+      "overall": {
+        "p@5": 0.34,
+        "r@5": 0.98,
+        "mrr": 0.918,
+        "hit@1": 0.86
+      },
+      "by_category": {
+        "brand": {
+          "p@5": 0.367,
+          "r@5": 1.0,
+          "mrr": 0.833,
+          "hit@1": 0.667
+        },
+        "generic": {
+          "p@5": 0.429,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "natural": {
+          "p@5": 0.333,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "abbreviation": {
+          "p@5": 0.36,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "misspelling": {
+          "p@5": 0.333,
+          "r@5": 1.0,
+          "mrr": 0.926,
+          "hit@1": 0.889
+        },
+        "bangla": {
+          "p@5": 0.325,
+          "r@5": 0.938,
+          "mrr": 0.917,
+          "hit@1": 0.875
+        },
+        "strength": {
+          "p@5": 0.2,
+          "r@5": 0.9,
+          "mrr": 0.75,
+          "hit@1": 0.6
+        },
+        "form": {
+          "p@5": 0.35,
+          "r@5": 1.0,
+          "mrr": 0.875,
+          "hit@1": 0.75
+        }
+      },
+      "per_query": [
+        {
+          "q": "Napa 500",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.5,
+          "hit@1": 0.0,
+          "top3": [
+            22,
+            1,
+            2
+          ]
+        },
+        {
+          "q": "Seclo 20",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            14,
+            13
+          ]
+        },
+        {
+          "q": "Fexo 120",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            16,
+            17,
+            26
+          ]
+        },
+        {
+          "q": "Monas 10",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            20,
+            21,
+            32
+          ]
+        },
+        {
+          "q": "Comet 500",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            23,
+            2
+          ]
+        },
+        {
+          "q": "Sergel 20",
+          "cat": "brand",
+          "p@5": 0.6,
+          "r@5": 1.0,
+          "mrr": 0.5,
+          "hit@1": 0.0,
+          "top3": [
+            9,
+            13,
+            14
+          ]
+        },
+        {
+          "q": "paracetamol 500 mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "omeprazole 20mg capsule",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            11,
+            10
+          ]
+        },
+        {
+          "q": "esomeprazole 20",
+          "cat": "generic",
+          "p@5": 0.6,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            13,
+            9,
+            14
+          ]
+        },
+        {
+          "q": "cetirizine 10mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            18,
+            19,
+            13
+          ]
+        },
+        {
+          "q": "losartan 50 mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            24,
+            1,
+            27
+          ]
+        },
+        {
+          "q": "azithromycin 500",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            33
+          ]
+        },
+        {
+          "q": "amlodipine 5mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31,
+            13
+          ]
+        },
+        {
+          "q": "I need paracetamol 500 mg tablets",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "looking for omeprazole capsules 20 mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            11,
+            10
+          ]
+        },
+        {
+          "q": "need oral rehydration saline sachets",
+          "cat": "natural",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28,
+            24,
+            5
+          ]
+        },
+        {
+          "q": "can anyone spare montelukast 10mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            21,
+            20,
+            18
+          ]
+        },
+        {
+          "q": "does someone have a strip of metformin 500",
+          "cat": "natural",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            23,
+            27
+          ]
+        },
+        {
+          "q": "want amlodipine five mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31,
+            27
+          ]
+        },
+        {
+          "q": "pcm 500 tab",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "napa syp",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            6,
+            28
+          ]
+        },
+        {
+          "q": "ors",
+          "cat": "abbreviation",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28,
+            26,
+            20
+          ]
+        },
+        {
+          "q": "omeprazole 20 cap",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            11,
+            10
+          ]
+        },
+        {
+          "q": "azithro 500",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            33
+          ]
+        },
+        {
+          "q": "paracitamol 500",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "omiprazol 20",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            11
+          ]
+        },
+        {
+          "q": "esomeprazol 40",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 0.3333333333333333,
+          "hit@1": 0.0,
+          "top3": [
+            11,
+            13,
+            15
+          ]
+        },
+        {
+          "q": "cetrizine 10",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            18,
+            19,
+            32
+          ]
+        },
+        {
+          "q": "azithromycine 500",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            33
+          ]
+        },
+        {
+          "q": "montelucast 10",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            21,
+            20,
+            32
+          ]
+        },
+        {
+          "q": "metformine 850",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            23,
+            22,
+            10
+          ]
+        },
+        {
+          "q": "fexofenadin 180",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17,
+            16,
+            26
+          ]
+        },
+        {
+          "q": "amlodipin 5",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31,
+            27
+          ]
+        },
+        {
+          "q": "প্যারাসিটামল ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.3333333333333333,
+          "hit@1": 0.0,
+          "top3": [
+            22,
+            27,
+            1
+          ]
+        },
+        {
+          "q": "নাপা ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            22,
+            2
+          ]
+        },
+        {
+          "q": "ওমিপ্রাজল ২০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            13
+          ]
+        },
+        {
+          "q": "সেকলো ২০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            13,
+            10
+          ]
+        },
+        {
+          "q": "মেটফরমিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            1,
+            2
+          ]
+        },
+        {
+          "q": "খাবার স্যালাইন",
+          "cat": "bangla",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28,
+            5,
+            33
+          ]
+        },
+        {
+          "q": "সেটিরিজিন ১০",
+          "cat": "bangla",
+          "p@5": 0.2,
+          "r@5": 0.5,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            18,
+            21,
+            10
+          ]
+        },
+        {
+          "q": "অ্যাজিথ্রোমাইসিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            27,
+            26,
+            22
+          ]
+        },
+        {
+          "q": "omeprazole 40 mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            11,
+            9,
+            10
+          ]
+        },
+        {
+          "q": "esomeprazole 40mg tablet",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 0.5,
+          "hit@1": 0.0,
+          "top3": [
+            13,
+            15,
+            12
+          ]
+        },
+        {
+          "q": "metformin 850",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            23,
+            22,
+            27
+          ]
+        },
+        {
+          "q": "fexofenadine 180mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17,
+            16,
+            26
+          ]
+        },
+        {
+          "q": "paracetamol 665 mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 0.5,
+          "mrr": 0.25,
+          "hit@1": 0.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "paracetamol syrup",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "q": "paracetamol suspension 120mg/5ml",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.5,
+          "hit@1": 0.0,
+          "top3": [
+            1,
+            5,
+            6
+          ]
+        },
+        {
+          "q": "salbutamol inhaler",
+          "cat": "form",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            33,
+            2,
+            1
+          ]
+        },
+        {
+          "q": "paracetamol with caffeine tablet",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            7,
+            8,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "system": "paraphrase-multilingual-MiniLM-L12-v2 + rules",
+      "overall": {
+        "p@5": 0.344,
+        "r@5": 0.99,
+        "mrr": 0.953,
+        "hit@1": 0.92
+      },
+      "by_category": {
+        "brand": {
+          "p@5": 0.367,
+          "r@5": 1.0,
+          "mrr": 0.833,
+          "hit@1": 0.667
+        },
+        "generic": {
+          "p@5": 0.429,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "natural": {
+          "p@5": 0.333,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "abbreviation": {
+          "p@5": 0.36,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "misspelling": {
+          "p@5": 0.333,
+          "r@5": 1.0,
+          "mrr": 0.926,
+          "hit@1": 0.889
+        },
+        "bangla": {
+          "p@5": 0.325,
+          "r@5": 0.938,
+          "mrr": 0.917,
+          "hit@1": 0.875
+        },
+        "strength": {
+          "p@5": 0.24,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        },
+        "form": {
+          "p@5": 0.35,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0
+        }
+      },
+      "per_query": [
+        {
+          "q": "Napa 500",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.5,
+          "hit@1": 0.0,
+          "top3": [
+            22,
+            1,
+            2
+          ]
+        },
+        {
+          "q": "Seclo 20",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            14,
+            13
+          ]
+        },
+        {
+          "q": "Fexo 120",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            16,
+            17,
+            26
+          ]
+        },
+        {
+          "q": "Monas 10",
+          "cat": "brand",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            20,
+            21,
+            32
+          ]
+        },
+        {
+          "q": "Comet 500",
+          "cat": "brand",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            23,
+            2
+          ]
+        },
+        {
+          "q": "Sergel 20",
+          "cat": "brand",
+          "p@5": 0.6,
+          "r@5": 1.0,
+          "mrr": 0.5,
+          "hit@1": 0.0,
+          "top3": [
+            9,
+            13,
+            14
+          ]
+        },
+        {
+          "q": "paracetamol 500 mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "omeprazole 20mg capsule",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10
+          ]
+        },
+        {
+          "q": "esomeprazole 20",
+          "cat": "generic",
+          "p@5": 0.6,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            13,
+            9,
+            14
+          ]
+        },
+        {
+          "q": "cetirizine 10mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            18,
+            19,
+            32
+          ]
+        },
+        {
+          "q": "losartan 50 mg",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            24,
+            25
+          ]
+        },
+        {
+          "q": "azithromycin 500",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            33
+          ]
+        },
+        {
+          "q": "amlodipine 5mg tablet",
+          "cat": "generic",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31
+          ]
+        },
+        {
+          "q": "I need paracetamol 500 mg tablets",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "looking for omeprazole capsules 20 mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10
+          ]
+        },
+        {
+          "q": "need oral rehydration saline sachets",
+          "cat": "natural",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28
+          ]
+        },
+        {
+          "q": "can anyone spare montelukast 10mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            21,
+            20,
+            18
+          ]
+        },
+        {
+          "q": "does someone have a strip of metformin 500",
+          "cat": "natural",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            23,
+            27
+          ]
+        },
+        {
+          "q": "want amlodipine five mg",
+          "cat": "natural",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31,
+            27
+          ]
+        },
+        {
+          "q": "pcm 500 tab",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "napa syp",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            6
+          ]
+        },
+        {
+          "q": "ors",
+          "cat": "abbreviation",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28,
+            26,
+            20
+          ]
+        },
+        {
+          "q": "omeprazole 20 cap",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            11,
+            10
+          ]
+        },
+        {
+          "q": "azithro 500",
+          "cat": "abbreviation",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            33
+          ]
+        },
+        {
+          "q": "paracitamol 500",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "q": "omiprazol 20",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            11
+          ]
+        },
+        {
+          "q": "esomeprazol 40",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 0.3333333333333333,
+          "hit@1": 0.0,
+          "top3": [
+            11,
+            13,
+            15
+          ]
+        },
+        {
+          "q": "cetrizine 10",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            18,
+            19,
+            32
+          ]
+        },
+        {
+          "q": "azithromycine 500",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            26,
+            27,
+            33
+          ]
+        },
+        {
+          "q": "montelucast 10",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            21,
+            20,
+            32
+          ]
+        },
+        {
+          "q": "metformine 850",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            23,
+            22,
+            10
+          ]
+        },
+        {
+          "q": "fexofenadin 180",
+          "cat": "misspelling",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17,
+            16,
+            26
+          ]
+        },
+        {
+          "q": "amlodipin 5",
+          "cat": "misspelling",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            30,
+            31,
+            27
+          ]
+        },
+        {
+          "q": "প্যারাসিটামল ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 0.3333333333333333,
+          "hit@1": 0.0,
+          "top3": [
+            22,
+            27,
+            1
+          ]
+        },
+        {
+          "q": "নাপা ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            1,
+            22,
+            2
+          ]
+        },
+        {
+          "q": "ওমিপ্রাজল ২০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            10,
+            13
+          ]
+        },
+        {
+          "q": "সেকলো ২০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            9,
+            13,
+            10
+          ]
+        },
+        {
+          "q": "মেটফরমিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            22,
+            1,
+            2
+          ]
+        },
+        {
+          "q": "খাবার স্যালাইন",
+          "cat": "bangla",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            28,
+            5,
+            33
+          ]
+        },
+        {
+          "q": "সেটিরিজিন ১০",
+          "cat": "bangla",
+          "p@5": 0.2,
+          "r@5": 0.5,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            18,
+            21,
+            10
+          ]
+        },
+        {
+          "q": "অ্যাজিথ্রোমাইসিন ৫০০",
+          "cat": "bangla",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            27,
+            26,
+            22
+          ]
+        },
+        {
+          "q": "omeprazole 40 mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            11,
+            15
+          ]
+        },
+        {
+          "q": "esomeprazole 40mg tablet",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            15
+          ]
+        },
+        {
+          "q": "metformin 850",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            23,
+            22,
+            27
+          ]
+        },
+        {
+          "q": "fexofenadine 180mg",
+          "cat": "strength",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            17
+          ]
+        },
+        {
+          "q": "paracetamol 665 mg",
+          "cat": "strength",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            3,
+            4
+          ]
+        },
+        {
+          "q": "paracetamol syrup",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            6
+          ]
+        },
+        {
+          "q": "paracetamol suspension 120mg/5ml",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            5,
+            6
+          ]
+        },
+        {
+          "q": "salbutamol inhaler",
+          "cat": "form",
+          "p@5": 0.2,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            33
+          ]
+        },
+        {
+          "q": "paracetamol with caffeine tablet",
+          "cat": "form",
+          "p@5": 0.4,
+          "r@5": 1.0,
+          "mrr": 1.0,
+          "hit@1": 1.0,
+          "top3": [
+            7,
+            8,
+            1
+          ]
+        }
+      ]
+    }
+  ],
+  "threshold_study": {
+    "multilingual-e5-small": [
+      {
+        "threshold": 0.8,
+        "correct_top1_accepted": 49,
+        "positives": 50,
+        "false_accepts": 4,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.81,
+        "correct_top1_accepted": 49,
+        "positives": 50,
+        "false_accepts": 4,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.82,
+        "correct_top1_accepted": 48,
+        "positives": 50,
+        "false_accepts": 2,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.83,
+        "correct_top1_accepted": 47,
+        "positives": 50,
+        "false_accepts": 2,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.84,
+        "correct_top1_accepted": 47,
+        "positives": 50,
+        "false_accepts": 2,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.85,
+        "correct_top1_accepted": 47,
+        "positives": 50,
+        "false_accepts": 1,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.86,
+        "correct_top1_accepted": 44,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.87,
+        "correct_top1_accepted": 40,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.88,
+        "correct_top1_accepted": 35,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.89,
+        "correct_top1_accepted": 32,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.9,
+        "correct_top1_accepted": 25,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.91,
+        "correct_top1_accepted": 22,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.92,
+        "correct_top1_accepted": 12,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.93,
+        "correct_top1_accepted": 2,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.94,
+        "correct_top1_accepted": 0,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.95,
+        "correct_top1_accepted": 0,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      }
+    ],
+    "paraphrase-multilingual-MiniLM-L12-v2": [
+      {
+        "threshold": 0.8,
+        "correct_top1_accepted": 16,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.81,
+        "correct_top1_accepted": 16,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.82,
+        "correct_top1_accepted": 16,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.83,
+        "correct_top1_accepted": 15,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.84,
+        "correct_top1_accepted": 15,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.85,
+        "correct_top1_accepted": 14,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.86,
+        "correct_top1_accepted": 13,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.87,
+        "correct_top1_accepted": 10,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.88,
+        "correct_top1_accepted": 9,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.89,
+        "correct_top1_accepted": 9,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.9,
+        "correct_top1_accepted": 8,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.91,
+        "correct_top1_accepted": 6,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.92,
+        "correct_top1_accepted": 5,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.93,
+        "correct_top1_accepted": 5,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.94,
+        "correct_top1_accepted": 5,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      },
+      {
+        "threshold": 0.95,
+        "correct_top1_accepted": 4,
+        "positives": 50,
+        "false_accepts": 0,
+        "negatives": 6
+      }
+    ]
+  },
+  "negative_top_similarity": {
+    "multilingual-e5-small": {
+      "insulin pen": 0.815,
+      "amoxicillin 500 capsule": 0.842,
+      "vitamin d3 2000 iu": -1.0,
+      "ibuprofen 400": 0.856,
+      "ইনসুলিন": 0.816,
+      "levothyroxine 50 mcg": -1.0
+    },
+    "paraphrase-multilingual-MiniLM-L12-v2": {
+      "insulin pen": 0.4,
+      "amoxicillin 500 capsule": 0.599,
+      "vitamin d3 2000 iu": -1.0,
+      "ibuprofen 400": 0.541,
+      "ইনসুলিন": 0.268,
+      "levothyroxine 50 mcg": -1.0
+    }
+  }
+}

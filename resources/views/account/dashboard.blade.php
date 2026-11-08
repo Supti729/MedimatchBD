@@ -31,7 +31,7 @@
                 @empty
                     <x-empty-state title="No matches yet" icon="sparkles">Post a request and we'll show relevant listings here.</x-empty-state>
                 @endforelse
-                <p class="mt-4 text-xs text-muted">Relevance comes from rule-based matching (same medicine, strength and form; nearer areas rank higher). AI-assisted ranking is added in Part 3.</p>
+                <p class="mt-4 text-xs text-muted">Every match has the same medicine, strength and form. Relevance reflects wording (AI-ranked when available), distance and recency — not medical suitability.</p>
             </x-section>
 
             <x-section title="Your requests">

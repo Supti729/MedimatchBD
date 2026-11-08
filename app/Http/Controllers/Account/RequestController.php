@@ -44,7 +44,7 @@ class RequestController extends Controller
     public function show(MedicineRequest $medicineRequest): View
     {
         Gate::authorize('view', $medicineRequest);
-        $medicineRequest->load(['location', 'medicine', 'verificationSubmissions']);
+        $medicineRequest->load(['location', 'medicine', 'suggestedMedicine', 'verificationSubmissions']);
 
         return view('account.requests.show', [
             'medicineRequest' => $medicineRequest,

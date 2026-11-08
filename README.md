@@ -14,7 +14,7 @@ Software Engineering Capstone Project. **This is an academic prototype, not an a
 |------|-------|--------|
 | **1. Frontend** | Laravel + Blade pages, shared design system, responsive layouts | ✅ Done |
 | **2. Backend** | MySQL schema, auth, roles/policies, listings, requests, search, matching, messaging, notifications, verification, admin, audit logs | ✅ Done |
-| **3. AI integration** | Python FastAPI + Sentence Transformers semantic ranking, evaluation, Laravel integration | ⏳ Next |
+| **3. AI integration** | Python FastAPI + Sentence Transformers semantic matching, evaluation, Laravel integration | ✅ Done |
 
 ## Tech stack
 
@@ -22,7 +22,8 @@ Software Engineering Capstone Project. **This is an academic prototype, not an a
 - **MySQL 8** (tests also run on in-memory SQLite)
 - **Tailwind CSS v4** via **Vite**, fonts self-hosted with `@fontsource`
 - Small dependency-free JavaScript (`resources/js/app.js`)
-- PHPUnit feature tests (101 tests)
+- **Python 3 · FastAPI · Sentence Transformers** (`intfloat/multilingual-e5-small`) for semantic matching — see [`ai-service/`](ai-service/README.md)
+- PHPUnit feature tests (115) and pytest (8)
 
 ## Running locally
 
@@ -50,6 +51,10 @@ php artisan serve
 ```
 
 Open http://localhost:8000.
+
+**AI matching (optional):** start the Python service as described in [`ai-service/README.md`](ai-service/README.md), then
+set `AI_SERVICE_URL` and `AI_SERVICE_KEY` in `.env`. The demo data switches AI matching on; without the service running,
+the app silently uses keyword matching instead.
 
 ### Demo accounts (local only, password `Password123`)
 
@@ -105,7 +110,8 @@ Runs on in-memory SQLite by default. To run the same suite against MySQL, point 
 - **No real-time updates yet.** Messages and notifications appear on the next page load; Laravel Reverb/WebSockets can be added later.
 - **Upazila data is partial.** All 8 divisions and 64 districts are seeded; full upazila lists exist only for the main districts (others have "<District> Sadar"). Extend `database/data/locations.php` and re-seed.
 - **Catalogue eligibility values are illustrative.** They must be set with qualified pharmacists against current regulations before any real deployment.
-- **Matching is rule-based** (keyword/identity rules + distance). Semantic AI ranking is Part 3.
+- **AI suggestions are conservative.** Easily confused ingredients (e.g. *omeprazole* vs *esomeprazole*) or short Bangla words below the similarity threshold get no suggestion; members can still choose the medicine from the catalogue, and Bangla catalogue aliases make keyword search find them. Thresholds come from a small hand-labelled dataset and need a larger test set before real use.
+- **AI service runs on CPU in a single process.** Fine for the prototype (≈11 ms per query); production would need a process manager and monitoring.
 - **Photos are not EXIF-stripped yet**; members are told not to include personal information in photos.
 - **Partner plans are labels only**; no payments are processed anywhere.
 
@@ -128,6 +134,20 @@ tests/Feature/                Public, auth, authorization, listings, requests & 
                               notifications, verification & moderation, page smoke tests
 ```
 
-## Hand-over to Part 3 (AI)
+## AI-assisted matching (Part 3)
 
-`MatchingService::score()` is the single place where relevance is computed. Part 3 adds a Python FastAPI service and replaces that score with semantic similarity for candidates that have **already passed the hard rules** in `passesHardRules()` — the AI never decides identity, strength, form, eligibility or medical suitability. The `request_matches.method` column records whether a score came from `keyword` or `semantic` matching, and the admin setting `ai_matching` is ready to switch it on.
+| Where | What the AI does | What it never does |
+|---|---|---|
+| Request matches | Ranks listings that already have the same medicine, strength and form (up to 15 of the 100 relevance points; distance and recency are rules) | Decide identity, strength, form, eligibility or availability |
+| Free-text requests | Suggests the catalogue medicine meant (`paracitamol 500 mg` → Napa 500) **only** among entries with the exact same strength and form, similarity ≥ 0.86 and clearly ahead of any other ingredient; shown as "Did you mean…?" | Silently change the request or pick between confusable ingredients |
+| Search | When keywords find nothing, suggests the closest single ingredient (labelled) | Show results without saying they are AI suggestions |
+
+**Evaluation** (`ai-service/evaluation/`, 33 listings, 56 hand-labelled queries): mean reciprocal rank **0.99** for
+multilingual-e5-small vs **0.56** for the Part 2 keyword search and **0.878** for BM25; misspellings 1.0 vs 0.333;
+Bangla 0.938 vs 0.0. The model was chosen over `paraphrase-multilingual-MiniLM-L12-v2` (MRR 0.953 with rules).
+Full numbers: [`ai-service/evaluation/results/report.md`](ai-service/evaluation/results/report.md); interpretation and
+limitations: [`ai-service/evaluation/README.md`](ai-service/evaluation/README.md).
+
+**Privacy & safety:** only medicine descriptions are sent (`app/Services/Ai/MedicineText.php`); requests carry an API key;
+3 s timeout with automatic keyword fallback and a one-minute circuit breaker; AI can be switched off in Admin → Settings;
+every match records whether it was `keyword`, `semantic` or `semantic_identity`.

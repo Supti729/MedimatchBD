@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Services\Ai\SemanticRanker;
 use App\Services\AuditLogger;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,9 +12,12 @@ use Illuminate\View\View;
 
 class SettingsController extends Controller
 {
-    public function edit(): View
+    public function edit(SemanticRanker $ai): View
     {
-        return view('admin.settings', ['settings' => collect(Setting::DEFAULTS)->map(fn ($v, $k) => Setting::get($k))->all()]);
+        return view('admin.settings', [
+            'settings' => collect(Setting::DEFAULTS)->map(fn ($v, $k) => Setting::get($k))->all(),
+            'aiHealth' => $ai->health(),
+        ]);
     }
 
     public function update(Request $request): RedirectResponse
@@ -26,6 +30,7 @@ class SettingsController extends Controller
             'review_new_members' => $request->boolean('review_new_members'),
             'review_verification_required' => $request->boolean('review_verification_required'),
             'allow_affordable_access' => $request->boolean('allow_affordable_access'),
+            'ai_matching' => $request->boolean('ai_matching'),
             'min_expiry_months' => (int) $data['min_expiry_months'],
             'request_expiry_days' => (int) $data['request_expiry_days'],
         ];

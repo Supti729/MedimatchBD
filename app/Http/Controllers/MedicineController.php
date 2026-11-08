@@ -46,9 +46,20 @@ class MedicineController extends Controller
     private function results(Request $request, string $route): View
     {
         $filters = ListingSearch::filtersFrom($request);
+        $results = ListingSearch::run($filters, $request);
+
+        // Nothing found by keywords? Ask the AI for close catalogue medicines (clearly labelled as suggestions).
+        $suggestions = collect();
+        if ($results->total() === 0 && $filters['q'] !== '') {
+            $suggestions = ListingSearch::suggestMedicines($filters['q']);
+            if ($suggestions->isNotEmpty()) {
+                $results = ListingSearch::run([...$filters, 'q' => '', 'medicine_ids' => $suggestions->pluck('id')->all()], $request);
+            }
+        }
 
         return view('medicines.index', [
-            'results' => ListingSearch::run($filters, $request),
+            'results' => $results,
+            'suggestions' => $suggestions,
             'filters' => $filters,
             'route' => $route,
             'isSearch' => $route === 'medicines.search',

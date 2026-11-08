@@ -22,6 +22,7 @@ class RequestService
         $request->expires_at = now()->addDays((int) Setting::get('request_expiry_days'));
         $request->save();
 
+        $this->matching->suggestIdentity($request); // free-text requests only; a no-op when AI is off
         $this->matching->matchRequest($request);
 
         return $request->refresh();
@@ -35,6 +36,7 @@ class RequestService
 
         DB::transaction(function () use ($request, $data) {
             $request->fill($this->withCatalogueDetails($data))->save();
+            $this->matching->suggestIdentity($request);
             // Details changed, so previous matches may no longer apply.
             $request->matches()->delete();
             if ($request->status === RequestStatus::MatchFound) {

@@ -23,7 +23,13 @@ class MedicineRequest extends Model
 
     protected function casts(): array
     {
-        return ['status' => RequestStatus::class, 'expires_at' => 'datetime', 'completed_at' => 'datetime'];
+        return ['status' => RequestStatus::class, 'expires_at' => 'datetime', 'completed_at' => 'datetime', 'suggestion_similarity' => 'float'];
+    }
+
+    /** AI-suggested catalogue medicine for a free-text request (a suggestion only — see MatchingService). */
+    public function suggestedMedicine(): BelongsTo
+    {
+        return $this->belongsTo(Medicine::class, 'suggested_medicine_id');
     }
 
     public function owner(): BelongsTo

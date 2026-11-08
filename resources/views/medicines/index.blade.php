@@ -87,8 +87,12 @@
                 </div>
             </div>
 
-            @if ($isSearch && $filters['q'])
-                <x-alert type="info" class="mt-4">Results use keyword matching on brand, generic name and catalogue aliases. AI-assisted semantic matching is added in Part 3.</x-alert>
+            @if ($suggestions->isNotEmpty())
+                <x-alert type="info" title="No exact matches — showing AI suggestions" class="mt-4">
+                    Nothing matched “{{ $filters['q'] }}” word for word, so our matching model suggested the closest medicines in the catalogue:
+                    <strong>{{ $suggestions->map(fn ($m) => $m->brand_name.' ('.$m->generic_name.' '.$m->strength.' '.$m->dosage_form.')')->implode(', ') }}</strong>.
+                    Please check the name, strength and form before requesting. This is text similarity, not medical advice.
+                </x-alert>
             @endif
 
             @if ($results->isEmpty())
