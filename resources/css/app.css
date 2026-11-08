@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+
+/* Self-hosted fonts (bundled by Vite, no third-party font requests). Hind Siliguri covers Bangla text. */
+@import '@fontsource/plus-jakarta-sans/latin-400.css';
+@import '@fontsource/plus-jakarta-sans/latin-500.css';
+@import '@fontsource/plus-jakarta-sans/latin-600.css';
+@import '@fontsource/plus-jakarta-sans/latin-700.css';
+@import '@fontsource/plus-jakarta-sans/latin-800.css';
+@import '@fontsource/hind-siliguri/bengali-400.css';
+@import '@fontsource/hind-siliguri/bengali-600.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+/* Status enums in app/Enums hold badge class names, so Tailwind must scan them. */
+@source '../../app';
+
+/* ----- Medimatch BD design tokens (carried over from the original prototype) ----- */
+@theme {
+    --font-sans: 'Plus Jakarta Sans', 'Hind Siliguri', ui-sans-serif, system-ui, sans-serif;
+
+    --color-brand-50: #eaf5f3;
+    --color-brand-100: #d3eae6;
+    --color-brand-200: #a9d5ce;
+    --color-brand-500: #16857e;
+    --color-brand-600: #0f6b66;
+    --color-brand-700: #0b5753;
+    --color-brand-800: #0a4542;
+    --color-brand-900: #0a2e2d;
+
+    --color-ink: #14262b;
+    --color-muted: #4a5f64;
+    --color-line: #d9e4e2;
+    --color-canvas: #f6faf9;
+
+    --color-warm-100: #fff1dc;
+    --color-warm-500: #f2a93b;
+    --color-warm-700: #8a5200;
+
+    --shadow-card: 0 1px 2px rgb(20 38 43 / 0.05), 0 2px 8px rgb(20 38 43 / 0.04);
+    --shadow-pop: 0 10px 30px rgb(20 38 43 / 0.14);
+}
+
+@layer base {
+    html { -webkit-tap-highlight-color: transparent; }
+    body { @apply bg-white text-ink font-sans antialiased; }
+    :focus-visible { outline: 3px solid var(--color-warm-500); outline-offset: 2px; }
+    [x-cloak], [hidden] { display: none !important; }
+    dialog::backdrop { background: rgb(10 46 45 / 0.45); }
+}
+
+@layer components {
+    .field { @apply mt-1 block w-full rounded-lg border border-line bg-white px-3 py-2.5 text-ink placeholder:text-muted/70 focus:border-brand-600 focus:ring-2 focus:ring-brand-100 focus:outline-none disabled:bg-canvas disabled:text-muted; }
+    .field-invalid { @apply border-red-600 focus:border-red-600 focus:ring-red-100; }
+    .label { @apply block text-sm font-medium text-ink; }
+    .hint { @apply mt-1 text-xs text-muted; }
+    .card { @apply rounded-xl border border-line bg-white shadow-card; }
+    .link { @apply font-semibold text-brand-700 underline underline-offset-4 hover:text-brand-900; }
+    .table-wrap { @apply relative overflow-x-auto rounded-xl border border-line bg-white; }
+    .table { @apply w-full text-left text-sm; }
+    .table th { @apply bg-canvas px-4 py-3 text-xs font-semibold tracking-wide text-muted uppercase whitespace-nowrap; }
+    .table td { @apply border-t border-line px-4 py-3 align-middle; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+}

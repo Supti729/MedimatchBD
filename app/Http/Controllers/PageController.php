@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Support\SampleData;
+use Illuminate\View\View;
+
+/** Public information pages. */
+class PageController extends Controller
+{
+    public function home(): View
+    {
+        return view('pages.home', [
+            'recent' => SampleData::publicListings()->sortByDesc('created_at')->take(3),
+        ]);
+    }
+
+    public function howItWorks(): View
+    {
+        return view('pages.how-it-works');
+    }
+
+    public function safety(): View
+    {
+        return view('pages.safety');
+    }
+
+    public function about(): View
+    {
+        return view('pages.about');
+    }
+
+    public function contact(): View
+    {
+        return view('pages.contact');
+    }
+
+    public function privacy(): View
+    {
+        return view('pages.privacy');
+    }
+
+    public function terms(): View
+    {
+        return view('pages.terms');
+    }
+}
