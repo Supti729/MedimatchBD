@@ -10,7 +10,7 @@
         <label for="search-division" class="sr-only">Division</label>
         <select id="search-division" name="division" class="field mt-0 {{ $large ? 'py-3.5' : '' }}">
             <option value="">Anywhere in Bangladesh</option>
-            @foreach (array_keys(config('locations')) as $name)
+            @foreach (array_keys(\App\Models\Location::tree()) as $name)
                 <option value="{{ $name }}" @selected($division === $name)>{{ $name }} Division</option>
             @endforeach
         </select>

@@ -33,7 +33,8 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
-            'serve' => true,
+            // Private documents are only ever streamed through access-checked controllers.
+            'serve' => false,
             'throw' => false,
             'report' => false,
         ],

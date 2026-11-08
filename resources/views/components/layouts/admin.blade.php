@@ -1,25 +1,26 @@
 @props(['title' => null])
 @php
+    // Each entry: route, label, icon, active pattern, required gate.
     $sections = [
-        '' => [['admin.dashboard', 'Dashboard', 'dashboard', 'admin.dashboard']],
+        '' => [['admin.dashboard', 'Dashboard', 'dashboard', 'admin.dashboard', 'access-admin']],
         'People' => [
-            ['admin.users.index', 'Users', 'users', 'admin.users.*'],
-            ['admin.partners.index', 'Partners', 'building', 'admin.partners.*'],
+            ['admin.users.index', 'Users', 'users', 'admin.users.*', 'admin'],
+            ['admin.partners.index', 'Partners', 'building', 'admin.partners.*', 'admin'],
         ],
         'Medicines' => [
-            ['admin.medicines.index', 'Medicine Catalogue', 'pill', 'admin.medicines.*'],
-            ['admin.listings.index', 'Listings', 'list', 'admin.listings.*'],
-            ['admin.requests.index', 'Requests', 'inbox', 'admin.requests.*'],
-            ['admin.interactions.index', 'Interactions', 'history', 'admin.interactions.*'],
+            ['admin.medicines.index', 'Medicine Catalogue', 'pill', 'admin.medicines.*', 'admin'],
+            ['admin.listings.index', 'Listings', 'list', 'admin.listings.*', 'admin'],
+            ['admin.requests.index', 'Requests', 'inbox', 'admin.requests.*', 'admin'],
+            ['admin.interactions.index', 'Interactions', 'history', 'admin.interactions.*', 'admin'],
         ],
         'Trust & safety' => [
-            ['admin.verifications.index', 'Verification Center', 'shield', 'admin.verifications.*'],
-            ['admin.reports.index', 'Reports', 'flag', 'admin.reports.*'],
-            ['admin.audit-logs.index', 'Audit Logs', 'file', 'admin.audit-logs.*'],
+            ['admin.verifications.index', 'Verification Center', 'shield', 'admin.verifications.*', 'review-verifications'],
+            ['admin.reports.index', 'Reports', 'flag', 'admin.reports.*', 'admin'],
+            ['admin.audit-logs.index', 'Audit Logs', 'file', 'admin.audit-logs.*', 'admin'],
         ],
         'Platform' => [
-            ['admin.announcements.index', 'Announcements', 'megaphone', 'admin.announcements.*'],
-            ['admin.settings', 'Settings', 'settings', 'admin.settings'],
+            ['admin.announcements.index', 'Announcements', 'megaphone', 'admin.announcements.*', 'admin'],
+            ['admin.settings', 'Settings', 'settings', 'admin.settings', 'admin'],
         ],
     ];
 @endphp
@@ -32,8 +33,10 @@
             </div>
             <nav id="admin-menu" aria-label="Admin" class="hidden px-3 pb-6 lg:block">
                 @foreach ($sections as $heading => $items)
+                    @php $items = array_filter($items, fn ($i) => Gate::allows($i[4])); @endphp
+                    @continue(! $items)
                     @if ($heading)<p class="mt-5 mb-2 px-3 text-xs font-semibold tracking-wide text-slate-400 uppercase">{{ $heading }}</p>@endif
-                    @foreach ($items as [$route, $label, $icon, $pattern])
+                    @foreach ($items as [$route, $label, $icon, $pattern, $gate])
                         @php $active = request()->routeIs($pattern); @endphp
                         <a href="{{ route($route) }}" @class(['flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium', 'bg-brand-600 text-white' => $active, 'hover:bg-white/10' => ! $active]) @if ($active) aria-current="page" @endif><x-icon :name="$icon" />{{ $label }}</a>
                     @endforeach
@@ -42,8 +45,8 @@
             </nav>
         </aside>
         <div class="min-w-0 flex-1">
-            <header class="sticky top-0 z-20 hidden h-16 items-center justify-between border-b border-line bg-white px-8 lg:flex">
-                <p class="text-sm text-muted">Signed in as <strong class="text-ink">Kamal Hossain</strong> · Administrator <span class="text-xs">(sample)</span></p>
+            <header class="sticky top-0 z-20 flex h-14 items-center justify-between gap-3 border-b border-line bg-white px-4 lg:h-16 lg:px-8">
+                <p class="text-sm text-muted">Signed in as <strong class="text-ink">{{ $currentUser->name }}</strong> · {{ $currentUser->role->label() }}</p>
                 <form method="POST" action="{{ route('logout') }}">@csrf<x-button type="submit" variant="neutral" size="sm" icon="logout">Log out</x-button></form>
             </header>
             <main id="main" class="px-4 py-6 lg:px-8">

@@ -3,7 +3,7 @@
         @csrf
         <x-form.input name="name" label="Full name" required autocomplete="name" maxlength="100" />
         <div class="grid gap-5 sm:grid-cols-2">
-            <x-form.input name="email" type="email" label="Email address" autocomplete="email" maxlength="150" hint="Email, phone, or both." />
+            <x-form.input name="email" type="email" label="Email address" autocomplete="email" maxlength="150" hint="Email, phone, or both. Never shown to other members." />
             <x-form.input name="phone" type="tel" label="Phone number" autocomplete="tel" placeholder="01XXXXXXXXX" pattern="(\+?880)?0?1[3-9][0-9]{8}" hint="Bangladeshi mobile number." />
         </div>
         <x-form.location required compact />

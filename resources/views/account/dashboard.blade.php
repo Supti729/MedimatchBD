@@ -31,11 +31,14 @@
                 @empty
                     <x-empty-state title="No matches yet" icon="sparkles">Post a request and we'll show relevant listings here.</x-empty-state>
                 @endforelse
-                <p class="mt-4 text-xs text-muted">Sample relevance scores. Real AI-assisted ranking is added in Part 3.</p>
+                <p class="mt-4 text-xs text-muted">Relevance comes from rule-based matching (same medicine, strength and form; nearer areas rank higher). AI-assisted ranking is added in Part 3.</p>
             </x-section>
 
             <x-section title="Your requests">
                 <x-slot:actions><x-button :href="route('requests.create')" size="sm" variant="ghost" icon="plus">New request</x-button></x-slot:actions>
+                @if ($requests->isEmpty())
+                    <x-empty-state title="No requests yet" icon="inbox">Looking for a medicine? Post a request and we'll match it with listings near you.</x-empty-state>
+                @endif
                 <ul class="divide-y divide-line">
                     @foreach ($requests as $req)
                         <li class="flex flex-wrap items-center gap-3 py-3 first:pt-0 last:pb-0">
@@ -57,7 +60,7 @@
             </x-section>
             <x-section title="Recent activity" :padded="false">
                 <div class="divide-y divide-line">
-                    @foreach ($activity as $notification)<x-notification-item :notification="$notification" compact />@endforeach
+                    @forelse ($activity as $notification)<x-notification-item :notification="$notification" compact />@empty<p class="px-4 py-6 text-center text-sm text-muted">No activity yet.</p>@endforelse
                 </div>
                 <a href="{{ route('notifications.index') }}" class="block border-t border-line px-4 py-3 text-center text-sm font-semibold text-brand-700 hover:bg-canvas">All notifications</a>
             </x-section>

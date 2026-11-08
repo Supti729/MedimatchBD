@@ -43,4 +43,9 @@ enum ReportStatus: string implements HasBadge
             self::Escalated => '▲',
         };
     }
+
+    public function isOpen(): bool
+    {
+        return in_array($this, [self::Open, self::UnderReview, self::Escalated], true);
+    }
 }

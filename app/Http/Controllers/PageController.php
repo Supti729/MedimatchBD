@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Support\SampleData;
+use App\Models\MedicineListing;
 use Illuminate\View\View;
 
 /** Public information pages. */
@@ -11,7 +11,7 @@ class PageController extends Controller
     public function home(): View
     {
         return view('pages.home', [
-            'recent' => SampleData::publicListings()->sortByDesc('created_at')->take(3),
+            'recent' => MedicineListing::publiclyVisible()->withCardData()->latest('published_at')->limit(3)->get(),
         ]);
     }
 
@@ -28,11 +28,6 @@ class PageController extends Controller
     public function about(): View
     {
         return view('pages.about');
-    }
-
-    public function contact(): View
-    {
-        return view('pages.contact');
     }
 
     public function privacy(): View

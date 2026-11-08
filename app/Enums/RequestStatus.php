@@ -55,4 +55,15 @@ enum RequestStatus: string implements HasBadge
             self::Expired => '⌛',
         };
     }
+
+    /** Requests that are still looking for medicine. */
+    public static function open(): array
+    {
+        return [self::Active, self::Matching, self::MatchFound, self::VerificationPending, self::Reserved];
+    }
+
+    public function isOpen(): bool
+    {
+        return in_array($this, self::open(), true);
+    }
 }

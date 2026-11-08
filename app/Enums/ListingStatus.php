@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-/** Lifecycle of a medicine listing. Users may only move between allowed states (enforced in Part 2). */
+/** Lifecycle of a medicine listing. Changes go through ListingService, which only allows the transitions below. */
 enum ListingStatus: string implements HasBadge
 {
     case Draft = 'draft';
@@ -62,5 +62,40 @@ enum ListingStatus: string implements HasBadge
             self::Rejected => '✕',
             self::Blocked => '⊘',
         };
+    }
+
+    /** States in which a listing appears in public search and can be opened by anyone. */
+    public static function public(): array
+    {
+        return [self::Available, self::Requested, self::Reserved];
+    }
+
+    /** Statuses a listing can be closed from by its owner (cancel). */
+    public function ownerCanCancel(): bool
+    {
+        return in_array($this, [self::Draft, self::PendingReview, self::Available, self::Requested, self::Paused], true);
+    }
+
+    public function ownerCanEdit(): bool
+    {
+        return in_array($this, [self::Draft, self::PendingReview, self::Available, self::Paused, self::Rejected], true);
+    }
+
+    /**
+     * Allowed transitions. Anything not listed here is refused by ListingService,
+     * so a user can never jump a listing straight to e.g. "completed".
+     */
+    public function canTransitionTo(self $to): bool
+    {
+        return in_array($to, match ($this) {
+            self::Draft => [self::PendingReview, self::Available, self::Cancelled],
+            self::PendingReview => [self::Available, self::Rejected, self::Blocked, self::Cancelled, self::Draft],
+            self::Available => [self::Requested, self::Reserved, self::Paused, self::Cancelled, self::Blocked, self::PendingReview],
+            self::Requested => [self::Available, self::Reserved, self::Cancelled, self::Blocked],
+            self::Reserved => [self::Available, self::Requested, self::Completed, self::Blocked],
+            self::Paused => [self::Available, self::Cancelled, self::Blocked, self::PendingReview],
+            self::Rejected => [self::PendingReview, self::Cancelled],
+            self::Completed, self::Cancelled, self::Blocked => [],
+        }, true);
     }
 }

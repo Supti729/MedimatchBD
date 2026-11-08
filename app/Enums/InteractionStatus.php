@@ -43,4 +43,9 @@ enum InteractionStatus: string implements HasBadge
             self::Disputed => '⚑',
         };
     }
+
+    public function isOpen(): bool
+    {
+        return in_array($this, [self::Requested, self::Reserved], true);
+    }
 }

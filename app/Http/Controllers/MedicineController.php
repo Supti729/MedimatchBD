@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RequestStatus;
+use App\Models\MedicineListing;
+use App\Services\VerificationService;
 use App\Support\ListingSearch;
-use App\Support\SampleData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /** Public browsing, search and listing details. */
@@ -20,27 +23,32 @@ class MedicineController extends Controller
         return $this->results($request, 'medicines.search');
     }
 
-    public function show(int $listing): View
+    public function show(Request $request, MedicineListing $listing, VerificationService $verification): View
     {
-        $listing = SampleData::listing($listing);
+        // Drafts, blocked, paused or unreviewed listings are a plain 404 for everyone else.
+        abort_unless(Gate::allows('view', $listing), 404);
+        $listing->load(['medicine', 'location', 'owner', 'images']);
+        $user = $request->user();
 
-        // Only publicly visible listings can be opened (never drafts, blocked or unreviewed ones).
-        abort_unless($listing && in_array($listing->status, SampleData::publicStatuses(), true), 404);
-
-        $similar = SampleData::publicListings()
-            ->filter(fn ($l) => $l->id !== $listing->id && $l->generic === $listing->generic)
-            ->take(3);
-
-        return view('medicines.show', compact('listing', 'similar'));
+        return view('medicines.show', [
+            'listing' => $listing,
+            'similar' => MedicineListing::publiclyVisible()->withCardData()
+                ->whereKeyNot($listing->id)
+                ->whereHas('medicine', fn ($q) => $q->where('generic_name', $listing->generic))
+                ->latest('published_at')->limit(3)->get(),
+            'isSaved' => $user && $user->savedListings()->whereKey($listing->id)->exists(),
+            'myRequests' => $user ? $user->medicineRequests()->whereIn('status', RequestStatus::open())->latest()->get() : collect(),
+            'existingConversation' => $user ? $listing->conversations()->where('requester_id', $user->id)->first() : null,
+            'needsVerification' => $user && ! $verification->requesterCleared($user, $listing->medicine),
+        ]);
     }
 
     private function results(Request $request, string $route): View
     {
         $filters = ListingSearch::filtersFrom($request);
-        $results = ListingSearch::run($filters, $request);
 
         return view('medicines.index', [
-            'results' => $results,
+            'results' => ListingSearch::run($filters, $request),
             'filters' => $filters,
             'route' => $route,
             'isSearch' => $route === 'medicines.search',

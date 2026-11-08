@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Support\SampleData;
+use App\Enums\AccountStatus;
+use App\Models\MedicineListing;
+use App\Models\User;
 use Illuminate\View\View;
 
-/** Public member profile — shows only minimum information (no phone, email or address). */
+/** Public member profile — minimum information only (no phone, email, address or documents). */
 class MemberController extends Controller
 {
-    public function show(int $member): View
+    public function show(User $member): View
     {
-        $member = SampleData::user($member);
-        abort_unless($member && $member->role === 'user', 404);
+        abort_if($member->isStaff() || $member->status !== AccountStatus::Active, 404);
 
         return view('members.show', [
             'member' => $member,
-            'listings' => SampleData::publicListings()->filter(fn ($l) => $l->owner->id === $member->id),
+            'listings' => MedicineListing::publiclyVisible()->withCardData()->where('user_id', $member->id)->latest('published_at')->get(),
         ]);
     }
 }

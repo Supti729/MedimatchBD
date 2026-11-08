@@ -7,14 +7,15 @@
                     <div class="border-b border-line p-5 last:border-0">
                         <div class="flex flex-wrap items-start justify-between gap-3">
                             <div>
-                                <p class="font-bold">{{ $s->kind }}@if ($s->request) <span class="font-normal text-muted">for request “{{ $s->request->name }}”</span>@endif</p>
+                                <p class="font-bold">{{ $s->kind_label }}@if ($s->request) <span class="font-normal text-muted">for request “{{ $s->request->name }}”</span>@endif</p>
                                 <p class="text-sm text-muted">{{ $s->document_type }} · submitted {{ $s->submitted_at->format('d M Y') }}</p>
+                                @if ($s->status === \App\Enums\VerificationStatus::ReuploadRequired)<p class="mt-1 text-sm font-semibold text-warm-700">Please submit a new document below.</p>@endif
                             </div>
                             <x-status-badge :status="$s->status" />
                         </div>
                         @if ($s->reviewer_note)<p class="mt-3 rounded-lg bg-canvas px-3 py-2 text-sm"><strong>Reviewer note:</strong> {{ $s->reviewer_note }}</p>@endif
                         <ol class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted" aria-label="Status history">
-                            @foreach ($s->history as $h)<li class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-brand-600"></span>{{ $h->label }} · {{ $h->at->format('d M, g:i a') }}</li>@endforeach
+                            @foreach ($s->reviews as $h)<li class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-brand-600"></span>{{ $h->to_status->label() }} · {{ $h->created_at->format('d M, g:i a') }}</li>@endforeach
                         </ol>
                     </div>
                 @empty
@@ -25,13 +26,14 @@
             <x-section title="Submit a document">
                 <form method="POST" action="{{ route('verification.store') }}" enctype="multipart/form-data" data-loading class="space-y-5">
                     @csrf
-                    <x-form.select name="kind" label="Type of check" required placeholder="Select type" :options="['identity' => 'Identity check', 'prescription' => 'Prescription check for a request']" />
-                    <x-form.select name="request_id" label="Related request" placeholder="Not related to a request" :options="$requests->mapWithKeys(fn ($r) => [$r->id => $r->name.' · '.$r->quantity])->all()" hint="Required for prescription checks." />
+                    <x-form.select name="kind" label="Type of check" required placeholder="Select type" :value="$selectedRequest ? 'prescription' : null" :options="['identity' => 'Identity check', 'prescription' => 'Prescription check for a request']" />
+                    <x-form.select name="request_id" label="Related request" placeholder="Not related to a request" :value="$selectedRequest" :options="$requests->mapWithKeys(fn ($r) => [$r->id => $r->name.' · '.$r->quantity])->all()" hint="Required for prescription checks." />
                     <div>
                         <label for="document" class="label">Document <span class="text-red-700" aria-hidden="true">*</span></label>
                         <input id="document" name="document" type="file" required accept="image/jpeg,image/png,application/pdf" class="field file:mr-3 file:rounded-md file:border-0 file:bg-brand-50 file:px-3 file:py-1.5 file:font-semibold file:text-brand-700">
                         <p class="hint">JPG, PNG or PDF, up to 5 MB. Cover any information not needed for the check.</p>
                     </div>
+                    @error('document')<p class="-mt-3 text-sm font-medium text-red-700">{{ $message }}</p>@enderror
                     <x-form.checkbox required name="consent" label="I consent to an authorised reviewer viewing this document for this check only." hint="The document is never shared with donors or other members." />
                     <x-button type="submit" icon="upload" data-loading-text="Uploading…">Submit for review</x-button>
                 </form>

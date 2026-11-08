@@ -4,7 +4,7 @@
         @csrf @method('PATCH')
         <x-section title="Profile photo">
             <div class="flex flex-wrap items-center gap-5">
-                <x-avatar :name="$me->name" size="xl" />
+                <x-avatar :user="$me" size="xl" />
                 <div>
                     <label for="avatar" class="label">Upload a new photo</label>
                     <input id="avatar" name="avatar" type="file" accept="image/jpeg,image/png,image/webp" class="field file:mr-3 file:rounded-md file:border-0 file:bg-brand-50 file:px-3 file:py-1.5 file:font-semibold file:text-brand-700">
@@ -16,7 +16,7 @@
             <div class="grid gap-5 sm:grid-cols-2">
                 <x-form.input name="name" label="Full name" :value="$me->name" required maxlength="100" autocomplete="name" class="sm:col-span-2" />
                 <x-form.input name="email" type="email" label="Email address" :value="$me->email" maxlength="150" autocomplete="email" hint="Changing your email requires verifying the new address." />
-                <x-form.input name="phone" type="tel" label="Phone number" value="01700000000" autocomplete="tel" hint="Changing your phone requires verifying the new number." />
+                <x-form.input name="phone" type="tel" label="Phone number" :value="$me->phone ? '0'.substr($me->phone, 4) : null" autocomplete="tel" placeholder="01XXXXXXXXX" hint="Changing your phone requires verifying the new number." />
             </div>
         </x-section>
         <x-section title="Your area" description="Used to show listings near you. Other members only see your district and upazila on listings you create.">

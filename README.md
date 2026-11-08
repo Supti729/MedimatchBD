@@ -12,76 +12,122 @@ Software Engineering Capstone Project. **This is an academic prototype, not an a
 
 | Part | Scope | Status |
 |------|-------|--------|
-| **1. Frontend** | Laravel + Blade pages, shared design system, responsive layouts, every screen with sample data | ✅ Done (this branch) |
-| **2. Backend** | MySQL schema, auth, roles/policies, listings, requests, search, messaging, notifications, verification, admin, audit logs | ⏳ Next |
-| **3. AI integration** | Python FastAPI + Sentence Transformers semantic matching, evaluation, Laravel integration | ⏳ Later |
+| **1. Frontend** | Laravel + Blade pages, shared design system, responsive layouts | ✅ Done |
+| **2. Backend** | MySQL schema, auth, roles/policies, listings, requests, search, matching, messaging, notifications, verification, admin, audit logs | ✅ Done |
+| **3. AI integration** | Python FastAPI + Sentence Transformers semantic ranking, evaluation, Laravel integration | ⏳ Next |
 
 ## Tech stack
 
-- **Laravel 13** (PHP 8.3) with Blade components
-- **Tailwind CSS v4** built with **Vite**; fonts self-hosted via `@fontsource` (no third-party font requests)
-- Small, dependency-free JavaScript (`resources/js/app.js`) for menus, dropdowns, dialogs, filter drawer and the location cascade
-- PHPUnit feature tests
+- **Laravel 13** (PHP 8.3), Blade components, Eloquent, Form Requests, Policies & Gates
+- **MySQL 8** (tests also run on in-memory SQLite)
+- **Tailwind CSS v4** via **Vite**, fonts self-hosted with `@fontsource`
+- Small dependency-free JavaScript (`resources/js/app.js`)
+- PHPUnit feature tests (101 tests)
 
 ## Running locally
 
-Requirements: PHP 8.3+, Composer, Node 20+.
+Requirements: PHP 8.3+ (with `pdo_mysql`, `gd`, `fileinfo`), Composer, Node 20+, MySQL 8.
 
 ```bash
 composer install
 cp .env.example .env
 php artisan key:generate
-npm install
-npm run build        # or `npm run dev` while editing
+```
+
+Create the database and user, then put the password in `.env` (`DB_PASSWORD`):
+
+```sql
+CREATE DATABASE medimatch CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'medimatch'@'localhost' IDENTIFIED BY 'choose-a-password';
+GRANT ALL ON medimatch.* TO 'medimatch'@'localhost';
+```
+
+```bash
+php artisan migrate --seed      # locations, medicine catalogue (+ demo data when APP_ENV=local)
+php artisan storage:link        # public listing photos
+npm install && npm run build
 php artisan serve
 ```
 
-Open http://localhost:8000. Part 1 needs no database: sessions and cache use files.
+Open http://localhost:8000.
 
-Run the tests:
+### Demo accounts (local only, password `Password123`)
+
+| Role | Login |
+|------|-------|
+| Administrator | `admin@medimatch.test` (use `/admin/login`) |
+| Authorised reviewer | `reviewer@medimatch.test` (use `/admin/login`) |
+| Members | `nadia@medimatch.test`, `rahim@medimatch.test`, `farhana@medimatch.test`, `mithila@medimatch.test`, `arif@medimatch.test` |
+| Phone-only member | `01811000004` |
+
+The demo data is created by `DemoSeeder` **through the real services**, so it contains genuine matches, notifications, a conversation, a completed hand-over, a pending listing review, a verification waiting for a reviewer and an open report.
+
+### Tests
 
 ```bash
 php artisan test
 ```
 
-## Part 1: what's included
+Runs on in-memory SQLite by default. To run the same suite against MySQL, point `DB_*` at an empty test database, e.g. `DB_CONNECTION=mysql DB_DATABASE=medimatch_test php artisan test`.
 
-### Pages (51 routes, all rendering)
-- **Public:** Home, Browse, Search results, Medicine details, Public member profile, How It Works, Safety, About, Contact, Privacy Policy, Terms
-- **Auth:** Log in, Register, Forgot password, Reset password, Verify account (clearly labelled development mode), Admin log in
-- **Member:** Dashboard, Profile, Edit profile, My listings (tabs), Create/Edit listing, My requests, Create/Edit request, Request details with matches, Saved, Messages, Conversation, Notifications, Interaction history, Verification Center, Privacy settings, Security settings
-- **Admin:** Dashboard with charts, Users, User details, Medicine catalogue, Listings, Listing review, Requests, Verification Center, Document review, Reports, Report details, Interactions, Partners, Announcements, Audit logs, Settings
-- Branded error pages (403, 404, 419, 429, 500, 503)
+## What works (Part 2)
 
-### What actually works in Part 1
-- Browse and search filter, sort and paginate the sample listings by name/generic/alias, division → district → upazila, listing type, form, strength and availability. Unknown filter values are ignored. Blocked, draft and unreviewed listings never appear.
-- Grid/list view, mobile filter drawer (focus trap, Escape to close), all 64 districts in the location cascade
-- Notification dropdown with unread count, account menu, mobile bottom navigation, confirmation dialogs, loading states on submit, local photo preview, character counters
-- Dashboard and admin statistics are **counted** from records, not typed in
+**Accounts**
+- Register with email, Bangladeshi phone (any common format, stored as `+8801XXXXXXXXX`) or both; division → district → upazila; optional photo.
+- One-time code verification. ⚠️ **Development mode:** no SMS provider is configured and email uses the `log` mailer, so the code is shown on screen (labelled) and written to `storage/logs/laravel.log`. Nothing is delivered.
+- Log in with email or phone, remember me, throttling (5 attempts/minute), log out, forgot/reset password (Laravel password broker; email goes to the log in development).
+- Suspended accounts are refused at login and signed out on their next request.
 
-### What is deliberately *not* working yet (honest placeholders)
-- **No form saves anything.** Every form action has its final named route but is handled by `PreviewActionController`, which redirects back with a "Preview: …" message explaining what Part 2 will do.
-- **No real accounts.** Member and admin pages are reachable without logging in, shown as the sample member "Nadia Rahman" and sample admin "Kamal Hossain". A banner on every page says this is a preview.
-- **Sample data** (`app/Support/SampleData.php`) is fictional. Match relevance percentages are placeholders until Part 3.
-- Upazila lists are complete only for the districts used by the sample data; other districts show "<District> Sadar" until the database is seeded in Part 2.
-- No email/SMS provider is configured; the UI says so wherever it matters.
+**Roles & authorization** (all enforced on the server)
+- `user` (one account both gives and receives), `reviewer` (verification documents only), `admin` (everything).
+- Gates: `access-admin`, `admin`, `review-verifications`. Policies for listings, requests, conversations, interactions and verification documents.
+- Roles/status are never mass-assignable; only an admin can change them (not their own), and every change is audit-logged.
 
-## Project structure (Part 1)
+**Listings** — create (catalogue entry + quantity, expiry month, packaging, photos, area, declarations), save as draft, edit, pause, reactivate, cancel. Status transitions are defined once in `ListingStatus::canTransitionTo()` and enforced by `ListingService`. Medicines marked *Not Allowed* can't be listed; *Verification Required* medicines and listings from new, unverified members go to review first. Affordable Access is off unless an admin enables it for an approved programme.
+
+**Requests & matching** — create/edit/cancel; rule-based matching (`MatchingService`): same medicine identity, strength and form, publicly available, not your own, respects donation/affordable preference; nearer listings score higher. New listings are matched against open requests and the requester is notified once per match.
+
+**Search** — database search over brand, generic, strength, form and catalogue aliases (including Bangla aliases), filters (division/district/upazila, type, form, strength, availability), sorting (relevance, newest, nearest, expiry), pagination, grid/list. Blocked, draft, paused, unreviewed, expired listings and listings of suspended members can never appear.
+
+**Hand-overs & messaging** — request a listing (opens a private conversation), donor reserves, either side marks complete or cancels; linked request and listing statuses follow. Medicines that require verification can only be reserved after the requester's prescription has been verified by a reviewer (the donor only sees that it passed). Messages are stored in the database; only the two participants can read them; messages containing phone numbers or email addresses are blocked; read/unread tracking.
+
+**Notifications** — Laravel database notifications for new message, new request, match found, listing status change, verification decision, reservation update, completion, report update and announcements. Header bell with unread count and dropdown, full page with filter, mark one/all read; opening a notification marks it read (and only ever redirects within the site).
+
+**Verification** — upload (JPG/PNG/PDF ≤ 5 MB, consent required) to the private disk; reviewers open it through an access-checked stream (`no-store`), every view is logged; decisions (verified / re-upload / rejected) with a note, status history, notification and audit entry. Reviewers can't review their own submissions. AI is never used for this.
+
+**Admin** — dashboard with live counts and charts (registrations, completions, listings/requests by district, type split) and work queues; users (search, filter, view, suspend/restore/activate, change role); medicine catalogue (add, eligibility, aliases, activate); listing review (approve/reject/block); requests; verification centre; reports (resolve, reject, escalate, suspend member, block listing); interaction monitoring; partners; announcements to all / one division / donors; append-only audit log; platform settings.
+
+**Profile & privacy** — private profile, edit (changing email/phone requires re-verification), public profile with minimum information, privacy settings (photo, contribution count, upazila, who can message), password change (signs out other devices), active sessions list and sign-out, account deletion (closes open listings/requests and removes personal details).
+
+## Known limitations
+
+- **No real email/SMS delivery.** Verification codes, password-reset links and contact messages use the `log` mailer in development. Configure a mail provider (and an SMS provider for phone codes) before any real use.
+- **No real-time updates yet.** Messages and notifications appear on the next page load; Laravel Reverb/WebSockets can be added later.
+- **Upazila data is partial.** All 8 divisions and 64 districts are seeded; full upazila lists exist only for the main districts (others have "<District> Sadar"). Extend `database/data/locations.php` and re-seed.
+- **Catalogue eligibility values are illustrative.** They must be set with qualified pharmacists against current regulations before any real deployment.
+- **Matching is rule-based** (keyword/identity rules + distance). Semantic AI ranking is Part 3.
+- **Photos are not EXIF-stripped yet**; members are told not to include personal information in photos.
+- **Partner plans are labels only**; no payments are processed anywhere.
+
+## Project structure
 
 ```
-app/Enums/                 Status enums (listing, request, verification, report, account…) with label/colour/icon
-app/Support/SampleData.php Part 1 only: fictional records shaped like the future Eloquent models
-app/Support/ListingSearch.php  Search + filter rules (becomes an Eloquent query in Part 2)
-app/Http/Controllers/      Public, Account/*, Admin/* controllers + PreviewActionController (Part 1 only)
-config/locations.php       Divisions → districts → upazilas
-resources/views/components/   Design system: button, status-badge, medicine-card, form fields, dialogs, charts, layouts
-resources/views/{pages,medicines,auth,account,admin,errors}/   Screens
-docs/prototype/            The original static HTML prototype, kept for reference
-tests/Feature/FrontendPagesTest.php
+app/Enums/                    Status enums with labels, colours, icons and transition rules
+app/Models/                   Eloquent models (User, Medicine, MedicineListing, MedicineRequest, Conversation, Interaction, …)
+app/Services/                 Business rules: ListingService, MatchingService, RequestService, InteractionService,
+                              MessageService, VerificationService, ReportService, UserModerationService, AuditLogger
+app/Policies/                 Ownership / participant / reviewer authorization
+app/Http/Requests/            Form Request validation
+app/Http/Controllers/         Public, Auth/*, Account/*, Admin/*
+app/Notifications/            Database notifications
+database/migrations/          Schema (29 tables incl. framework tables)
+database/seeders/             LocationSeeder, MedicineCatalogueSeeder, DemoSeeder (local only)
+resources/views/components/   Design system (layouts, buttons, badges, cards, form fields, dialogs, charts)
+docs/prototype/               The original static HTML prototype
+tests/Feature/                Public, auth, authorization, listings, requests & matching, hand-over & messaging,
+                              notifications, verification & moderation, page smoke tests
 ```
 
-## Handing over to Part 2
-1. Create migrations/models matching the objects in `SampleData` (same property names keep the views working).
-2. Replace each `PreviewActionController` route with a real controller + Form Request + Policy.
-3. Swap `SampleData::…` calls in controllers for Eloquent queries; delete `SampleData`, `PreviewActionController` and `<x-preview-banner>`.
-4. Wrap member routes in `auth` and admin routes in an admin/reviewer middleware; remove the "Preview shortcuts" footer links.
+## Hand-over to Part 3 (AI)
+
+`MatchingService::score()` is the single place where relevance is computed. Part 3 adds a Python FastAPI service and replaces that score with semantic similarity for candidates that have **already passed the hard rules** in `passesHardRules()` — the AI never decides identity, strength, form, eligibility or medical suitability. The `request_matches.method` column records whether a score came from `keyword` or `semantic` matching, and the admin setting `ai_matching` is ready to switch it on.

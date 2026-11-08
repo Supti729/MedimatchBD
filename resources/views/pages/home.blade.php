@@ -154,22 +154,26 @@
         <div class="flex items-end justify-between gap-4">
             <div>
                 <h2 class="text-3xl font-extrabold tracking-tight text-brand-900">Recently listed</h2>
-                <p class="mt-1 text-sm text-muted">Sample listings for the design preview.</p>
+                <p class="mt-1 text-sm text-muted">The newest medicines shared by members.</p>
             </div>
             <a href="{{ route('medicines.index') }}" class="link shrink-0 text-sm">Browse all</a>
         </div>
-        <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            @foreach ($recent as $listing)
-                <x-medicine-card :listing="$listing" />
-            @endforeach
-        </div>
+        @if ($recent->isEmpty())
+            <x-empty-state title="No medicines listed yet" icon="pill" class="mt-8">Be the first to share an unused, eligible medicine.<x-slot:actions><x-button :href="route('listings.create')" icon="heart">Donate Medicine</x-button></x-slot:actions></x-empty-state>
+        @else
+            <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                @foreach ($recent as $listing)
+                    <x-medicine-card :listing="$listing" />
+                @endforeach
+            </div>
+        @endif
     </section>
 
     {{-- Community impact (no invented numbers) --}}
     <section class="mx-auto max-w-7xl px-4">
         <div class="rounded-2xl border border-line bg-white p-8 sm:p-10">
             <h2 class="text-2xl font-extrabold text-brand-900">Community impact</h2>
-            <p class="mt-2 max-w-2xl text-muted">These figures will be counted from real platform activity once the backend is live. We don't show made-up numbers.</p>
+            <p class="mt-2 max-w-2xl text-muted">These figures will be published once the platform has run long enough for them to be meaningful. We don't show made-up numbers.</p>
             <dl class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 @foreach (['Medicines shared', 'Requests fulfilled', 'Districts reached', 'Active members'] as $metric)
                     <div class="rounded-xl bg-canvas p-5">

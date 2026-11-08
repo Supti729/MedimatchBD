@@ -48,7 +48,7 @@
                     </div>
                 </fieldset>
 
-                <x-form.select name="form" label="Dosage form" placeholder="Any form" :options="\App\Support\SampleData::dosageForms()" :value="$filters['form']" />
+                <x-form.select name="form" label="Dosage form" placeholder="Any form" :options="\App\Http\Requests\MedicineRequestRequest::FORMS" :value="$filters['form']" />
                 <x-form.input name="strength" label="Strength" :value="$filters['strength']" placeholder="e.g. 500 mg" maxlength="30" />
 
                 <div class="flex gap-2">
@@ -107,7 +107,7 @@
                 </div>
                 {{ $results->links() }}
             @endif
-            <p class="mt-6 text-xs text-muted">Blocked, draft and unreviewed listings never appear in search. Sample data for the design preview.</p>
+            <p class="mt-6 text-xs text-muted">Blocked, draft, unreviewed and expired listings never appear in search.</p>
         </section>
     </div>
 </x-layouts.public>

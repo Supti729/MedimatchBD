@@ -6,10 +6,10 @@
 |--------------------------------------------------------------------------
 | Division => District => [Upazila / Thana, ...]
 |
-| All 8 divisions and 64 districts are listed. Upazila / thana lists are only
-| filled in for the districts used by the sample data; the remaining districts
-| fall back to a "Sadar" entry. Part 2 replaces this file with a seeded
-| `locations` table holding the complete upazila list.
+| Seed source for the `locations` table (see LocationSeeder).
+| All 8 divisions and 64 districts are listed. Upazila / thana lists are filled
+| in for the main districts; the remaining districts currently fall back to a
+| single "<District> Sadar" entry. Add rows here and re-run the seeder to extend.
 */
 
 $sadar = fn (string $district) => ["{$district} Sadar"];

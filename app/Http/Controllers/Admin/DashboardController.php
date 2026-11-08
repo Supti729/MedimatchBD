@@ -7,47 +7,73 @@ use App\Enums\InteractionStatus;
 use App\Enums\ListingStatus;
 use App\Enums\ListingType;
 use App\Enums\ReportStatus;
-use App\Enums\RequestStatus;
 use App\Enums\VerificationStatus;
 use App\Http\Controllers\Controller;
-use App\Support\SampleData;
+use App\Models\AuditLog;
+use App\Models\Interaction;
+use App\Models\MedicineListing;
+use App\Models\MedicineRequest;
+use App\Models\Partner;
+use App\Models\Report;
+use App\Models\User;
+use App\Models\VerificationSubmission;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
+/** Every number on this page is counted from the database. */
 class DashboardController extends Controller
 {
     public function __invoke(): View
     {
-        $users = SampleData::users();
-        $listings = SampleData::listings();
-        $requests = SampleData::requests();
+        $isAdmin = auth()->user()->isAdmin();
+        $pendingVerifications = VerificationSubmission::whereIn('status', [VerificationStatus::Submitted, VerificationStatus::UnderReview]);
 
-        // Every figure is counted from records (sample records in Part 1, the database in Part 2).
+        // Reviewers only see their own queue.
+        if (! $isAdmin) {
+            return view('admin.dashboard', [
+                'isAdmin' => false,
+                'stats' => ['Pending verification' => [$pendingVerifications->count(), 'shield']],
+                'queue' => ['verifications' => (clone $pendingVerifications)->with('user')->oldest()->limit(8)->get()],
+            ]);
+        }
+
         $stats = [
-            'Total users' => [$users->count(), 'users'],
-            'Active users' => [$users->where('status', AccountStatus::Active)->count(), 'user'],
-            'Total listings' => [$listings->count(), 'pill'],
-            'Active listings' => [$listings->whereIn('status', [ListingStatus::Available, ListingStatus::Requested, ListingStatus::Reserved])->count(), 'check'],
-            'Total requests' => [$requests->count(), 'inbox'],
-            'Pending verification' => [SampleData::verifications()->whereIn('status', [VerificationStatus::Submitted, VerificationStatus::UnderReview])->count(), 'shield'],
-            'Open reports' => [SampleData::reports()->whereIn('status', [ReportStatus::Open, ReportStatus::UnderReview, ReportStatus::Escalated])->count(), 'flag'],
-            'Completed interactions' => [SampleData::interactions()->where('status', InteractionStatus::Completed)->count(), 'history'],
-            'Partner accounts' => [SampleData::partners()->count(), 'building'],
+            'Total users' => [User::where('role', 'user')->count(), 'users'],
+            'Active users' => [User::where('role', 'user')->where('status', AccountStatus::Active)->where('last_active_at', '>=', now()->subDays(30))->count(), 'user'],
+            'Total listings' => [MedicineListing::count(), 'pill'],
+            'Active listings' => [MedicineListing::whereIn('status', ListingStatus::public())->count(), 'check'],
+            'Total requests' => [MedicineRequest::count(), 'inbox'],
+            'Pending verification' => [(clone $pendingVerifications)->count(), 'shield'],
+            'Open reports' => [Report::whereIn('status', [ReportStatus::Open, ReportStatus::UnderReview, ReportStatus::Escalated])->count(), 'flag'],
+            'Completed interactions' => [Interaction::where('status', InteractionStatus::Completed)->count(), 'history'],
+            'Partner accounts' => [Partner::count(), 'building'],
         ];
 
+        // Last 6 months of registrations, grouped in PHP so it works on MySQL and SQLite alike.
+        $months = collect(range(5, 0))->mapWithKeys(fn ($i) => [now()->startOfMonth()->subMonths($i)->format('M') => 0]);
+        $registrations = User::where('role', 'user')->where('created_at', '>=', now()->startOfMonth()->subMonths(5))->pluck('created_at')
+            ->countBy(fn (Carbon $d) => $d->format('M'));
+        $completions = Interaction::where('status', InteractionStatus::Completed)->where('completed_at', '>=', now()->startOfMonth()->subMonths(5))->pluck('completed_at')
+            ->countBy(fn (Carbon $d) => $d->format('M'));
+
+        $byDistrict = fn ($table) => DB::table($table)->join('locations', 'locations.id', '=', "{$table}.location_id")
+            ->select('locations.district', DB::raw('count(*) as total'))->groupBy('locations.district')->orderByDesc('total')->limit(6)->pluck('total', 'district')->all();
+
         return view('admin.dashboard', [
+            'isAdmin' => true,
             'stats' => $stats,
-            'registrations' => $users->groupBy(fn ($u) => $u->joined_at->format('M'))->map->count()
-                ->sortBy(fn ($c, $m) => \Illuminate\Support\Carbon::parse("1 $m")->month)->all(),
-            'listingsByDistrict' => $listings->groupBy('district')->map->count()->sortDesc()->all(),
-            'requestsByDistrict' => $requests->groupBy('district')->map->count()->sortDesc()->all(),
-            'byType' => collect(ListingType::cases())->mapWithKeys(fn ($t) => [$t->label() => $listings->where('type', $t)->count()])->all(),
+            'registrations' => $months->merge($registrations->only($months->keys()))->all(),
+            'completions' => $months->merge($completions->only($months->keys()))->all(),
+            'listingsByDistrict' => $byDistrict('medicine_listings'),
+            'requestsByDistrict' => $byDistrict('medicine_requests'),
+            'byType' => collect(ListingType::cases())->mapWithKeys(fn ($t) => [$t->label() => MedicineListing::where('type', $t)->count()])->all(),
             'queue' => [
-                'listings' => $listings->where('status', ListingStatus::PendingReview),
-                'verifications' => SampleData::verifications()->whereIn('status', [VerificationStatus::Submitted, VerificationStatus::UnderReview]),
-                'reports' => SampleData::reports()->whereIn('status', [ReportStatus::Open, ReportStatus::Escalated]),
+                'listings' => MedicineListing::with(['medicine', 'owner', 'location'])->where('status', ListingStatus::PendingReview)->oldest()->limit(6)->get(),
+                'verifications' => (clone $pendingVerifications)->with('user')->oldest()->limit(6)->get(),
+                'reports' => Report::with('reportable')->whereIn('status', [ReportStatus::Open, ReportStatus::Escalated])->oldest()->limit(6)->get(),
             ],
-            'openRequests' => $requests->whereIn('status', [RequestStatus::Active, RequestStatus::Matching])->count(),
-            'audit' => SampleData::auditLogs()->take(5),
+            'audit' => AuditLog::with('actor')->latest('created_at')->limit(6)->get(),
         ]);
     }
 }

@@ -16,12 +16,13 @@
             @foreach ($notifications as $notification)
                 <div class="flex items-center">
                     <x-notification-item :notification="$notification" class="flex-1" />
-                    @unless ($notification->read)
+                    @if (! $notification->read_at)
                         <form method="POST" action="{{ route('notifications.read', $notification->id) }}" class="pr-3">@csrf @method('PATCH')<button class="rounded-lg px-2 py-1 text-xs font-semibold whitespace-nowrap text-brand-700 hover:bg-brand-50">Mark read</button></form>
-                    @endunless
+                    @endif
                 </div>
             @endforeach
         </div>
+        {{ $notifications->links() }}
     @endif
-    <p class="mt-4 text-xs text-muted">Notifications are shown in the platform. Email and SMS delivery are only used when a provider is configured.</p>
+    <p class="mt-4 text-xs text-muted">Notifications are shown in the platform. Email and SMS delivery are not configured in this prototype.</p>
 </x-layouts.app>

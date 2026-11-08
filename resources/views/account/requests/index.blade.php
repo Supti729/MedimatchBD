@@ -16,7 +16,7 @@
                             <td class="whitespace-nowrap">{{ $req->quantity }}</td>
                             <td class="whitespace-nowrap">{{ $req->upazila }}, {{ $req->district }}</td>
                             <td><x-status-badge :status="$req->status" /></td>
-                            <td>{{ $req->matches->count() }}</td>
+                            <td>{{ $req->matches_count }}</td>
                             <td class="whitespace-nowrap text-muted">{{ $req->created_at->format('d M Y') }}</td>
                             <td class="text-right"><x-button :href="route('requests.show', $req->id)" variant="neutral" size="sm">Open</x-button></td>
                         </tr>

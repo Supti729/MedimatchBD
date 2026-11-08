@@ -20,8 +20,13 @@
                 @endforeach
             </nav>
             <div class="hidden items-center gap-2 lg:flex">
-                <x-button :href="route('login')" variant="ghost" size="sm">Log in</x-button>
-                <x-button :href="route('register')" size="sm">Register</x-button>
+                @auth
+                    <x-button :href="auth()->user()->isStaff() ? route('admin.dashboard') : route('dashboard')" variant="ghost" size="sm" icon="dashboard">{{ auth()->user()->isStaff() ? 'Admin' : 'Dashboard' }}</x-button>
+                    <form method="POST" action="{{ route('logout') }}">@csrf<x-button type="submit" variant="neutral" size="sm">Log out</x-button></form>
+                @else
+                    <x-button :href="route('login')" variant="ghost" size="sm">Log in</x-button>
+                    <x-button :href="route('register')" size="sm">Register</x-button>
+                @endauth
             </div>
             <button type="button" data-menu-toggle aria-controls="public-menu" aria-expanded="false" aria-label="Open menu" class="grid size-11 place-items-center rounded-lg border border-line lg:hidden">
                 <x-icon name="menu" />
@@ -32,8 +37,13 @@
                 <a href="{{ route($route) }}" @class(['block rounded-lg px-3 py-3 font-medium', 'bg-brand-50 text-brand-700' => request()->routeIs($pattern)])>{{ $label }}</a>
             @endforeach
             <div class="mt-3 grid grid-cols-2 gap-2">
-                <x-button :href="route('login')" variant="secondary">Log in</x-button>
-                <x-button :href="route('register')">Register</x-button>
+                @auth
+                    <x-button :href="auth()->user()->isStaff() ? route('admin.dashboard') : route('dashboard')" variant="secondary">{{ auth()->user()->isStaff() ? 'Admin' : 'Dashboard' }}</x-button>
+                    <form method="POST" action="{{ route('logout') }}" class="grid">@csrf<x-button type="submit" variant="neutral">Log out</x-button></form>
+                @else
+                    <x-button :href="route('login')" variant="secondary">Log in</x-button>
+                    <x-button :href="route('register')">Register</x-button>
+                @endauth
             </div>
         </nav>
     </header>
@@ -70,15 +80,10 @@
                     <li><a href="{{ route('contact') }}" class="hover:underline">Contact</a></li>
                 </ul>
             </nav>
-            {{-- PART 1 ONLY: shortcuts for reviewing the preview without accounts. --}}
-            <nav aria-label="Preview shortcuts">
-                <p class="font-semibold text-white">Preview shortcuts</p>
-                <ul class="mt-3 space-y-2 text-sm">
-                    <li><a href="{{ route('dashboard') }}" class="hover:underline">Member dashboard</a></li>
-                    <li><a href="{{ route('admin.dashboard') }}" class="hover:underline">Admin dashboard</a></li>
-                </ul>
-                <p class="mt-3 text-xs text-brand-200">Shown only in the Part 1 preview. In Part 2 these pages require signing in.</p>
-            </nav>
+            <div>
+                <p class="font-semibold text-white">Not medical advice</p>
+                <p class="mt-3 text-sm">Medimatch BD never diagnoses or recommends treatment. Ask a doctor or pharmacist before taking any medicine. In an emergency call 999.</p>
+            </div>
         </div>
         <div class="border-t border-white/15">
             <p class="mx-auto max-w-7xl px-4 py-4 text-xs text-brand-200">&copy; {{ date('Y') }} Medimatch BD · Software Engineering Capstone Project. Medicine sharing follows applicable Bangladesh regulations; this prototype is not an authorised service.</p>

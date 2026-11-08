@@ -13,7 +13,6 @@
 </head>
 <body class="min-h-screen {{ $bodyClass }}">
     <a href="#main" class="sr-only z-50 rounded-lg bg-white px-4 py-2 font-semibold text-brand-700 shadow-pop focus:not-sr-only focus:fixed focus:top-2 focus:left-2">Skip to content</a>
-    <x-preview-banner />
     {{ $slot }}
 </body>
 </html>

@@ -12,16 +12,24 @@
             </form>
         </x-section>
         <x-section title="Account verification">
-            <x-info-list :items="['Email' => $me->email.' · verified (development mode)', 'Phone' => $me->phone.' · not verified']" />
-            <p class="mt-3 text-sm text-muted">Phone verification needs an SMS provider, which isn't configured for this prototype.</p>
+            <x-info-list :items="[
+                'Email' => $me->email ? $me->email.' · '.($me->email_verified_at ? 'verified' : 'not verified') : 'Not added',
+                'Phone' => $me->phone ? $me->phone_display.' · '.($me->phone_verified_at ? 'verified' : 'not verified') : 'Not added',
+            ]" />
+            <p class="mt-3 text-sm text-muted">Codes are issued in development mode: no SMS provider is configured and email is written to the application log.</p>
         </x-section>
         <x-section title="Active sessions">
             <ul class="divide-y divide-line text-sm">
-                <li class="flex items-center justify-between gap-3 py-3 first:pt-0"><span><span class="font-semibold">This device</span><span class="block text-muted">Chrome on Android · Dhaka · active now</span></span><span class="rounded-full bg-green-100 px-2.5 py-1 text-xs font-semibold text-green-800">Current</span></li>
-                <li class="flex items-center justify-between gap-3 py-3 last:pb-0"><span><span class="font-semibold">Laptop</span><span class="block text-muted">Firefox on Windows · Dhaka · 2 days ago</span></span></li>
+                @foreach ($sessions as $session)
+                    <li class="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
+                        <span><span class="font-semibold">{{ $session->agent }}</span><span class="block text-muted">{{ $session->ip }} · {{ $session->current ? 'active now' : $session->last_active->diffForHumans() }}</span></span>
+                        @if ($session->current)<span class="rounded-full bg-green-100 px-2.5 py-1 text-xs font-semibold text-green-800">This device</span>@endif
+                    </li>
+                @endforeach
             </ul>
-            <form method="POST" action="{{ route('settings.sessions.destroy') }}" class="mt-4">@csrf @method('DELETE')<x-button type="submit" variant="neutral" icon="logout">Log out other sessions</x-button></form>
-            <p class="mt-2 text-xs text-muted">Sample sessions for the preview.</p>
+            @if ($sessions->count() > 1)
+                <form method="POST" action="{{ route('settings.sessions.destroy') }}" class="mt-4">@csrf @method('DELETE')<x-button type="submit" variant="neutral" icon="logout">Log out other sessions</x-button></form>
+            @endif
         </x-section>
     </div>
 </x-layouts.app>

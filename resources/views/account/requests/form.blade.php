@@ -14,18 +14,18 @@
                             <option value="{{ $m->id }}" @selected(old('medicine_id', $r?->medicine->id) == $m->id)>{{ $m->brand }} — {{ $m->generic }} {{ $m->strength }} {{ $m->form }}</option>
                         @endforeach
                     </select>
-                    <p class="hint">Choosing from the catalogue gives the most accurate matches.</p>
+                    <p class="hint">Choosing from the catalogue gives the most accurate matches and fills in the name, strength and form for you.</p>
                 </div>
-                <x-form.input name="name" label="Medicine or brand name" :value="$r?->name" required maxlength="100" placeholder="e.g. Napa 500" />
-                <x-form.input name="generic" label="Generic name" :value="$r?->generic" maxlength="100" placeholder="e.g. Paracetamol" />
+                <x-form.input name="medicine_name" label="Medicine or brand name" :value="$r?->medicine_name" required maxlength="100" placeholder="e.g. Napa 500" />
+                <x-form.input name="generic_name" label="Generic name" :value="$r?->generic_name" maxlength="100" placeholder="e.g. Paracetamol" />
                 <x-form.input name="strength" label="Strength" :value="$r?->strength" required maxlength="30" placeholder="e.g. 500 mg" />
-                <x-form.select name="form" label="Dosage form" :options="\App\Support\SampleData::dosageForms()" :value="$r?->form" placeholder="Select form" required />
+                <x-form.select name="dosage_form" label="Dosage form" :options="\App\Http\Requests\MedicineRequestRequest::FORMS" :value="$r?->dosage_form" placeholder="Select form" required />
                 <x-form.input name="quantity" label="Quantity needed" :value="$r?->quantity" required maxlength="40" placeholder="e.g. 10 tablets" />
                 <x-form.select name="preference" label="Assistance preference" required :value="$r?->preference ?? 'either'" :options="['donation' => 'Donation only', 'either' => 'Donation or Affordable Access', 'affordable_access' => 'Affordable Access only']" />
             </div>
         </x-section>
         <x-section title="Area" description="Matches near this area are shown first.">
-            <x-form.location :division="$r?->division ?? 'Dhaka'" :district="$r?->district ?? 'Dhaka'" :upazila="$r?->upazila ?? 'Mirpur'" required />
+            <x-form.location :division="$r?->division ?? $me->division" :district="$r?->district ?? $me->district" :upazila="$r?->upazila ?? $me->upazila" required />
         </x-section>
         <x-section title="Additional information">
             <x-form.textarea name="notes" label="Notes" :value="$r?->notes" rows="3" maxlength="500" hint="Non-sensitive details only. Don't include diagnoses, prescriptions, phone numbers or addresses." />

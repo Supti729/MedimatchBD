@@ -1,7 +1,7 @@
 {{-- Division → District → Upazila cascade (see initLocationSelects in resources/js/app.js). --}}
 @props(['division' => null, 'district' => null, 'upazila' => null, 'required' => false, 'withUpazila' => true, 'prefix' => '', 'compact' => false])
 @once
-    <script id="bd-locations" type="application/json">@json(config('locations'))</script>
+    <script id="bd-locations" type="application/json">@json(\App\Models\Location::tree())</script>
 @endonce
 @php $p = $prefix ? $prefix.'_' : ''; @endphp
 <div data-location-group {{ $attributes->merge(['class' => $compact ? 'space-y-4' : 'grid gap-4 '.($withUpazila ? 'sm:grid-cols-3' : 'sm:grid-cols-2')]) }}>
@@ -9,7 +9,7 @@
         <label for="{{ $p }}division" class="label">Division @if ($required)<span class="text-red-700" aria-hidden="true">*</span>@endif</label>
         <select id="{{ $p }}division" name="division" data-location="division" @required($required) @class(['field', 'field-invalid' => $errors->has('division')])>
             <option value="">{{ $required ? 'Select division' : 'All divisions' }}</option>
-            @foreach (array_keys(config('locations')) as $name)
+            @foreach (array_keys(\App\Models\Location::tree()) as $name)
                 <option value="{{ $name }}" @selected(old('division', $division) === $name)>{{ $name }}</option>
             @endforeach
         </select>

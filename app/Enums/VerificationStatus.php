@@ -47,4 +47,9 @@ enum VerificationStatus: string implements HasBadge
             self::ReuploadRequired => '↻',
         };
     }
+
+    public function isPending(): bool
+    {
+        return in_array($this, [self::Submitted, self::UnderReview], true);
+    }
 }

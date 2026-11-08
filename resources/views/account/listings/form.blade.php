@@ -1,6 +1,7 @@
 @php
     $editing = (bool) $listing;
     $E = \App\Enums\MedicineEligibility::class;
+    $allowAffordable = (bool) \App\Models\Setting::get('allow_affordable_access');
 @endphp
 <x-layouts.app :title="$editing ? 'Edit listing' : 'Donate medicine'">
     <x-page-header :title="$editing ? 'Edit '.$listing->name : 'Donate medicine'" :description="$editing ? 'Changes to key details may send the listing back for review.' : 'List a sealed, in-date medicine you no longer need. It takes about two minutes.'" :back="route('listings.index')" back-label="My listings" />
@@ -32,11 +33,12 @@
 
             <x-section title="2. Quantity, expiry and condition">
                 <div class="grid gap-5 sm:grid-cols-2">
-                    <x-form.input name="quantity" type="number" label="Quantity" :value="$listing ? (int) $listing->quantity : null" required min="1" max="500" />
-                    <x-form.select name="unit" label="Unit" required :options="['tablets' => 'Tablets', 'capsules' => 'Capsules', 'bottles' => 'Bottles', 'tubes' => 'Tubes', 'inhalers' => 'Inhalers', 'other' => 'Other']" :value="$listing ? \Illuminate\Support\Str::afterLast($listing->quantity, ' ') : null" placeholder="Select unit" />
-                    <x-form.input name="expires_at" type="month" label="Expiry month" :value="$listing?->expires_at->format('Y-m')" required :min="now()->addMonth()->format('Y-m')" hint="Must be at least one month away." />
-                    <x-form.select name="packaging" label="Packaging condition" required placeholder="Select condition" :value="$listing?->packaging" :options="['Sealed, undamaged' => 'Sealed, undamaged', 'Sealed bottle' => 'Sealed bottle', 'Outer box opened, strips sealed' => 'Outer box opened, strips/blisters sealed']" hint="Opened or damaged medicine cannot be listed." />
-                    <x-form.input name="batch_number" label="Batch number" maxlength="40" hint="Visible to reviewers only, never to other members." class="sm:col-span-2" />
+                    <x-form.input name="quantity" type="number" label="Quantity" :value="$listing?->quantity" required min="1" max="500" />
+                    <x-form.select name="unit" label="Unit" required :options="\App\Http\Requests\ListingRequest::UNITS" :value="$listing?->unit" placeholder="Select unit" />
+                    @php $minMonths = (int) \App\Models\Setting::get('min_expiry_months'); @endphp
+                    <x-form.input name="expires_on" type="month" label="Expiry month" :value="$listing?->expires_on->format('Y-m')" required :min="now()->addMonths($minMonths)->format('Y-m')" :hint="'Must be at least '.$minMonths.' '.Str::plural('month', $minMonths).' away.'" />
+                    <x-form.select name="packaging" label="Packaging condition" required placeholder="Select condition" :value="$listing?->packaging" :options="\App\Http\Requests\ListingRequest::PACKAGING" hint="Opened or damaged medicine cannot be listed." />
+                    <x-form.input name="batch_number" label="Batch number" :value="$listing?->batch_number" maxlength="40" hint="Visible to reviewers only, never to other members." class="sm:col-span-2" />
                 </div>
             </x-section>
 
@@ -48,6 +50,12 @@
                 </label>
                 <input id="photos" name="photos[]" type="file" multiple accept="image/jpeg,image/png,image/webp" data-image-preview="photo-preview" data-max="4" class="sr-only">
                 <div id="photo-preview" class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4" aria-live="polite"></div>
+                @error('photos')<p class="mt-2 text-sm font-medium text-red-700">{{ $message }}</p>@enderror
+                @error('photos.*')<p class="mt-2 text-sm font-medium text-red-700">{{ $message }}</p>@enderror
+                @if ($listing?->images->isNotEmpty())
+                    <p class="label mt-4">Current photos ({{ $listing->images->count() }}/4)</p>
+                    <div class="mt-2 grid grid-cols-4 gap-3">@foreach ($listing->images as $image)<img src="{{ $image->url }}" alt="Current photo" class="aspect-square w-full rounded-lg border border-line object-cover">@endforeach</div>
+                @endif
             </x-section>
 
             <x-section title="4. Pick-up area" description="Only the upazila and district are shown publicly. Arrange the exact place in private chat.">
@@ -61,10 +69,11 @@
                         <input type="radio" name="type" value="donation" required @checked(old('type', $listing?->type->value ?? 'donation') === 'donation') class="mt-1 size-5 accent-brand-600">
                         <span><span class="font-semibold">Donation</span><span class="block text-sm text-muted">Give the medicine free of charge.</span></span>
                     </label>
-                    <label class="flex gap-3 rounded-xl border border-line bg-canvas p-4 opacity-70">
-                        <input type="radio" name="type" value="affordable_access" disabled class="mt-1 size-5">
-                        <span><span class="font-semibold">Affordable Access</span><span class="block text-sm text-muted">Only for approved partner programmes. Not available to individual members.</span></span>
+                    <label @class(['flex gap-3 rounded-xl border border-line p-4', 'cursor-pointer has-checked:border-brand-600 has-checked:bg-brand-50' => $allowAffordable, 'bg-canvas opacity-70' => ! $allowAffordable])>
+                        <input type="radio" name="type" value="affordable_access" @disabled(! $allowAffordable) @checked(old('type', $listing?->type->value) === 'affordable_access') class="mt-1 size-5 accent-brand-600">
+                        <span><span class="font-semibold">Affordable Access</span><span class="block text-sm text-muted">Only for approved partner programmes{{ $allowAffordable ? '' : '. Not currently available' }}.</span></span>
                     </label>
+                    @error('type')<p class="text-sm font-medium text-red-700 sm:col-span-2">{{ $message }}</p>@enderror
                 </fieldset>
             </x-section>
 

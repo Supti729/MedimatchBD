@@ -17,7 +17,7 @@
                     @foreach ($listings as $l)
                         <tr>
                             <td class="text-muted">{{ $l->id }}</td>
-                            <td><span class="font-semibold">{{ $l->name }}</span><span class="block text-xs text-muted">{{ $l->strength }} {{ $l->form }} · {{ $l->quantity }}</span></td>
+                            <td><span class="font-semibold">{{ $l->name }}</span><span class="block text-xs text-muted">{{ $l->strength }} {{ $l->form }} · {{ $l->quantity_label }}</span></td>
                             <td>{{ $l->owner->name }}</td>
                             <td>{{ $l->district }}</td>
                             <td><x-status-badge :status="$l->type" size="xs" /></td>
@@ -29,5 +29,6 @@
                 </tbody>
             </table>
         </div>
+        {{ $listings->links() }}
     @endif
 </x-layouts.admin>

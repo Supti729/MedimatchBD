@@ -14,22 +14,25 @@
             @if ($r->status === \App\Enums\RequestStatus::VerificationPending)
                 <x-alert type="warning" title="Verification pending">An authorised reviewer is checking your prescription. The donor will only see whether it passed. <a href="{{ route('verification.index') }}" class="font-semibold underline">Open Verification Center</a></x-alert>
             @endif
-            <x-section title="Potential matches" description="Eligible listings that fit this request, ranked by relevance.">
-                @if ($r->matches->isEmpty())
+            @if ($needsPrescription && ! $r->verificationSubmissions->contains(fn ($v) => $v->status === \App\Enums\VerificationStatus::Verified) && $r->status->isOpen() && $r->status !== \App\Enums\RequestStatus::VerificationPending)
+                <x-alert type="warning" title="Prescription check needed">{{ $r->name }} needs a prescription check before a donor can reserve it for you. <a href="{{ route('verification.index', ['request' => $r->id]) }}" class="font-semibold underline">Upload it privately</a> — only an authorised reviewer will see it.</x-alert>
+            @endif
+            <x-section title="Potential matches" description="Eligible listings with the same medicine, strength and form, ranked by relevance.">
+                @if ($matches->isEmpty())
                     <x-empty-state title="No matches yet" icon="sparkles">We'll notify you as soon as a relevant listing appears near you.<x-slot:actions><x-button :href="route('medicines.search', ['q' => $r->generic])" variant="neutral" icon="search">Search manually</x-button></x-slot:actions></x-empty-state>
                 @else
                     <div class="space-y-3">
-                        @foreach ($r->matches as $match)<x-medicine-card :listing="$match->listing" layout="list" :relevance="$match->relevance" />@endforeach
+                        @foreach ($matches as $match)<x-medicine-card :listing="$match->listing" layout="list" :relevance="$match->score" />@endforeach
                     </div>
-                    <p class="mt-4 text-xs text-muted">Sample relevance scores. Real AI-assisted ranking arrives in Part 3. Relevance describes text similarity only; it is not medical advice or a statement that medicines are equivalent.</p>
+                    <p class="mt-4 text-xs text-muted">Relevance comes from rule-based matching (AI-assisted ranking arrives in Part 3). It is not medical advice or a statement that medicines are equivalent.</p>
                 @endif
             </x-section>
         </div>
         <aside class="space-y-4">
             <x-section title="Request details">
                 <div class="mb-4"><x-status-badge :status="$r->status" /></div>
-                <x-info-list :items="['Quantity' => $r->quantity, 'Area' => $r->upazila.', '.$r->district, 'Preference' => \App\Support\SampleData::preferenceLabel($r->preference), 'Created' => $r->created_at->format('d M Y')]" />
-                <p class="mt-4 text-sm text-muted">{{ $r->notes }}</p>
+                <x-info-list :items="['Quantity' => $r->quantity, 'Area' => $r->upazila.', '.$r->district, 'Preference' => $r->preferenceLabel(), 'Created' => $r->created_at->format('d M Y'), 'Expires' => $r->expires_at?->format('d M Y') ?? '—']" />
+                @if ($r->notes)<p class="mt-4 text-sm text-muted">{{ $r->notes }}</p>@endif
             </x-section>
         </aside>
     </div>

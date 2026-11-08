@@ -74,13 +74,13 @@
                 {{-- Account dropdown --}}
                 <div class="relative" data-dropdown>
                     <button type="button" data-dropdown-trigger class="flex items-center gap-2 rounded-lg p-1 hover:bg-canvas" aria-haspopup="true">
-                        <x-avatar :name="$currentUser->name" size="sm" />
+                        <x-avatar :user="$currentUser" size="sm" />
                         <span class="hidden text-sm font-semibold sm:block">{{ strtok($currentUser->name, ' ') }}</span>
                         <x-icon name="chevron-down" class="hidden size-4 text-muted sm:block" />
                         <span class="sr-only">Account menu</span>
                     </button>
                     <div data-dropdown-panel hidden class="absolute right-0 z-40 mt-2 w-60 overflow-hidden rounded-xl border border-line bg-white py-1 shadow-pop">
-                        <div class="border-b border-line px-4 py-3"><p class="font-semibold">{{ $currentUser->name }}</p><p class="truncate text-xs text-muted">{{ $currentUser->email }}</p></div>
+                        <div class="border-b border-line px-4 py-3"><p class="font-semibold">{{ $currentUser->name }}</p><p class="truncate text-xs text-muted">{{ $currentUser->email ?? $currentUser->phone_display }}</p></div>
                         <a href="{{ route('profile.show') }}" class="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-canvas"><x-icon name="user" class="size-4" />Profile</a>
                         <a href="{{ route('members.show', $currentUser->id) }}" class="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-canvas"><x-icon name="eye" class="size-4" />View public profile</a>
                         <a href="{{ route('settings.security') }}" class="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-canvas"><x-icon name="settings" class="size-4" />Settings</a>
