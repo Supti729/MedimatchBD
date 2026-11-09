@@ -46,3 +46,13 @@ def test_503_when_model_not_loaded(client):
     from app.main import app
     app.state.embedder = None
     assert client.post("/v1/rank", headers=HEADERS, json={"query": "x", "candidates": CANDIDATES}).status_code == 503
+
+
+def test_deployed_service_refuses_to_run_without_a_key(client):
+    from app.config import Settings, get_settings
+    from app.main import app
+    app.dependency_overrides[get_settings] = lambda: Settings(api_key="", require_api_key=True)
+    res = client.post("/v1/rank", json={"query": "x", "candidates": CANDIDATES})
+    assert res.status_code == 503
+    assert "MEDIMATCH_AI_API_KEY" in res.json()["detail"]
+    assert client.get("/health").json()["api_key_configured"] is False

@@ -10,6 +10,9 @@ class Settings(BaseSettings):
 
     model_name: str = "intfloat/multilingual-e5-small"
     api_key: str = ""            # shared secret sent by Laravel as X-API-Key; empty = no auth (local only)
+    # Deployed images set this to true: then /v1/rank refuses to work until api_key is configured,
+    # so a public deployment can never be left open by mistake.
+    require_api_key: bool = False
     device: str = "cpu"
     max_candidates: int = 200    # upper bound per request, protects the CPU
     max_text_length: int = 500

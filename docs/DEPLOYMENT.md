@@ -1,82 +1,70 @@
-# Deploying Medimatch BD (Railway + Hugging Face Spaces)
+# Deploying Medimatch BD (Railway)
 
 ```
- Browser ──HTTPS──▶ Railway: "web" service (Laravel, Dockerfile in repo root)
-                         │  private network
-                         ├──▶ Railway: MySQL database
-                         └──HTTPS + X-API-Key──▶ Hugging Face Space (ai-service/Dockerfile)
+ Browser ──HTTPS──▶ Railway "web" service (Laravel, Dockerfile in repo root)
+                         ├──▶ Railway MySQL (private network)
+                         └──HTTPS + X-API-Key──▶ Railway "ai" service (ai-service/Dockerfile)
+
 ```
 
-- **Railway** runs the Laravel website and a MySQL database. A **volume** keeps uploaded photos and
-  private verification documents across redeploys.
-- **Hugging Face Spaces** (free CPU) runs the AI matching service. If it is asleep or down, the website
-  automatically falls back to keyword matching, so the site never breaks because of it.
+- **web** — the Laravel website. A **volume** keeps uploaded photos and private verification documents.
+- **MySQL** — Railway's database.
+- **ai** — the AI matching service (FastAPI + `multilingual-e5-small`, ~714 MB RAM). If it is down or
+  slow, the website automatically uses keyword matching, so the site never breaks because of it.
+
+> Why not Hugging Face for the AI service? Since late 2026 Hugging Face only hosts **Static** Spaces for free;
+> Docker and Gradio Spaces need a PRO subscription. With PRO you can still use the Docker route described
+> at the end of this guide.
 
 > **Academic prototype.** This deployment is for demonstrating the capstone. It is not an authorised
 > medicine service. Don't upload real prescriptions or ID documents.
 
-**Costs (check current prices before you start):** Railway gives new accounts a one-time trial credit;
-after that the Hobby plan is about US$5/month including usage for a small app like this
-(railway.com/pricing). Hugging Face "CPU basic" Spaces are free but sleep after about 48 hours without
-visits — open the Space URL a few minutes before a demo to wake it.
+**Costs (check railway.com/pricing before you start):** Railway gives new accounts a one-time trial credit;
+after that the Hobby plan is US$5/month and includes some usage. The AI service keeps ~0.7 GB of RAM busy,
+so expect the total to go **above** the included usage — roughly US$10–15/month for web + MySQL + AI.
+To save money between demos you can remove the AI service (or set its replicas to 0); the website keeps
+working with keyword matching.
 
-Both images were built and run together locally before this guide was written (MySQL 8 container +
-web container with a volume + AI container): migrations on first start, waiting for the database,
-HTTPS links behind a proxy, photo uploads surviving a redeploy and the AI connection all worked.
-
----
-
-## Part A — the AI service on Hugging Face (do this first)
-
-### A1. Create the Space
-1. Sign up / log in at **huggingface.co**.
-2. **New → Space**. Name: e.g. `medimatch-ai`. SDK: **Docker** → template **Blank**.
-   Hardware: **CPU basic (free)**. Visibility: **Public** (the API is protected by its own key; a private
-   Space would need a Hugging Face token on every request).
-3. In the Space: **Settings → Variables and secrets → New secret**
-   - Name: `MEDIMATCH_AI_API_KEY`
-   - Value: a long random string. Generate one with `openssl rand -hex 32` (or any password generator).
-   Keep it — Railway needs the same value.
-
-### A2. Upload the code
-You need a Hugging Face **access token** with *write* permission (**Settings → Access Tokens**).
-
-**Option 1 — script (Linux/macOS/Git Bash):** from the repository root:
-```bash
-ai-service/deploy/push-to-huggingface.sh YOUR-HF-USERNAME/medimatch-ai
-```
-When git asks for a password, paste the access token.
-
-**Option 2 — web upload:** in the Space, **Files → Add file → Upload files**, and upload
-`ai-service/app/` (the whole folder), `ai-service/requirements.txt`, `ai-service/Dockerfile` and
-`ai-service/.dockerignore`. Then replace the Space's `README.md` with the contents of
-`ai-service/deploy/space-README.md` (it must keep the `---` header block — that tells Hugging Face to use Docker on port 7860).
-
-### A3. Wait for the build and test it
-The first build takes about 5–10 minutes (PyTorch + model download). When the Space shows **Running**, open:
-```
-https://YOUR-HF-USERNAME-medimatch-ai.hf.space/health
-```
-You should see `{"status":"ok","model":"intfloat/multilingual-e5-small",...}`.
-(The exact URL is shown under **⋮ → Embed this Space → Direct URL**.)
+Both images were built and run together locally before this guide was written (MySQL 8 + web with a volume
++ AI container): migrations on first start, waiting for the database, HTTPS links behind a proxy, photo
+uploads surviving a redeploy, a custom `PORT` for the AI service and the AI connection all worked.
 
 ---
 
-## Part B — the website on Railway
+## Part A — create the project, the database and the AI service
 
-### B1. Create the project
+### A1. Project and database
 1. Sign up at **railway.com** with GitHub and allow access to the `MedimatchBD` repository.
-2. **New Project → Deploy from GitHub repo → MedimatchBD**. Railway finds `railway.json` and builds the
-   `Dockerfile` (≈ 5 minutes). The first deploy will fail until the variables below are set — that's expected.
+2. **New Project → Deploy from GitHub repo → MedimatchBD.** This first service is the **web** service
+   (Railway finds `railway.json` + `Dockerfile` in the repository root). Its first deploy fails until
+   Part B is done — that's expected.
 3. In the same project: **+ New → Database → MySQL**.
 
-### B2. Add a volume (keeps uploads)
-Open the web service → **⋮ / right-click → Attach volume** (or **Settings → Volumes**). Mount path:
+### A2. The AI service
+1. **+ New → GitHub Repo → MedimatchBD** again (a second service from the same repository).
+2. Open it → **Settings**:
+   - **Service name:** `ai`
+   - **Source → Root Directory:** `/ai-service` (Railway then uses `ai-service/railway.json` and `ai-service/Dockerfile`)
+   - **Networking → Generate Domain**, target port **7860**. Note the `https://ai-….up.railway.app` address.
+3. **Variables** of the `ai` service:
+   ```
+   PORT=7860
+   MEDIMATCH_AI_API_KEY=a-long-random-secret
+   ```
+   Generate the secret with `openssl rand -hex 32` (or any password generator) and keep it for Part B.
+   Without this variable the service starts but refuses every matching request (by design).
+4. Deploy. The first build takes ~5–10 minutes (PyTorch + model download into the image).
+   Check `https://ai-….up.railway.app/health` → `{"status":"ok",…,"api_key_configured":true}`.
+
+## Part B — the website (web service)
+
+### B1. Add a volume (keeps uploads)
+Open the **web** service → **⋮ / right-click → Attach volume** (or **Settings → Volumes**). Mount path:
 ```
 /app/storage
 ```
 
-### B3. Set the variables
+### B2. Set the variables
 Web service → **Variables → Raw Editor**, paste and adjust:
 ```
 APP_NAME="Medimatch BD"
@@ -102,8 +90,8 @@ MAIL_MAILER=log
 # No email/SMS provider is configured, so show verification codes on screen (clearly labelled "Development mode").
 MEDIMATCH_SHOW_DEV_CODES=true
 
-AI_SERVICE_URL=https://YOUR-HF-USERNAME-medimatch-ai.hf.space
-AI_SERVICE_KEY=THE-SAME-SECRET-AS-ON-HUGGING-FACE
+AI_SERVICE_URL=https://ai-REPLACE-ME.up.railway.app
+AI_SERVICE_KEY=THE-SAME-SECRET-AS-MEDIMATCH_AI_API_KEY
 AI_SERVICE_TIMEOUT=5
 ```
 - **APP_KEY** — generate it on your computer inside the project: `php artisan key:generate --show`
@@ -112,7 +100,7 @@ AI_SERVICE_TIMEOUT=5
   `MySQL`, use that name.
 - **APP_URL** — fill in after the next step, then redeploy.
 
-### B4. Get a public address
+### B3. Get a public address
 Web service → **Settings → Networking → Generate Domain**, target port **8080**. Copy the
 `https://….up.railway.app` address into `APP_URL`. Railway redeploys automatically after variable changes.
 
@@ -120,7 +108,7 @@ On every start the container: prepares the storage folders on the volume, caches
 waits for MySQL, runs migrations, loads the reference data (locations + medicine catalogue) and starts
 the web server. Railway's health check calls `/up`.
 
-### B5. Create your administrator
+### B4. Create your administrator
 Install the Railway CLI (`npm i -g @railway/cli`), then in the project folder:
 ```bash
 railway login
@@ -139,7 +127,7 @@ It asks for name, email and a password (min. 8 characters with letters and numbe
 Log in at `https://YOUR-APP.up.railway.app/admin/login`, open **Admin → Settings**, tick
 **Use AI-assisted matching**, save, and check that it says **Matching service: Online**.
 
-### B6. (Optional) Demo data for a presentation
+### B5. (Optional) Demo data for a presentation
 Still inside `railway ssh`:
 ```bash
 php artisan db:seed --class=DemoSeeder --force
@@ -151,7 +139,7 @@ Only do this for a short demo; afterwards change those passwords or reset the da
 
 ## Updating
 - **Website:** push to `main` on GitHub → Railway rebuilds and redeploys automatically. Migrations run on start.
-- **AI service:** run `ai-service/deploy/push-to-huggingface.sh …` again (or re-upload the changed files).
+- **AI service:** also redeploys from `main` (Railway rebuilds the `ai` service when files in `ai-service/` change).
 
 ## Troubleshooting
 | Symptom | Check |
@@ -160,14 +148,26 @@ Only do this for a short demo; afterwards change those passwords or reset the da
 | 500 error on every page | `APP_KEY` missing or not starting with `base64:` — look at the service logs |
 | Links/CSS load over `http://` or not at all | `APP_URL` must be the exact `https://` Railway address |
 | Uploaded photos disappear after a deploy | The volume must be mounted at `/app/storage` |
-| Admin settings: "Matching service: Not reachable" | Space is asleep (open its URL), still building, or `AI_SERVICE_URL` is wrong |
-| AI calls return 401 | `AI_SERVICE_KEY` (Railway) ≠ `MEDIMATCH_AI_API_KEY` (Space secret) |
+| Admin settings: "Matching service: Not reachable" | The `ai` service is still building/crashed (check its logs), or `AI_SERVICE_URL` is wrong |
+| AI calls return 401 | `AI_SERVICE_KEY` (web) ≠ `MEDIMATCH_AI_API_KEY` (ai) |
+| AI calls return 503 "not configured" | `MEDIMATCH_AI_API_KEY` is missing on the `ai` service |
+| `ai` service runs out of memory | Give it at least 1 GB RAM (it uses ~0.7 GB) |
 | New members can't verify | `MEDIMATCH_SHOW_DEV_CODES=true`, or configure a real mail provider (e.g. `MAIL_MAILER=resend` + `RESEND_API_KEY`) |
 
 ## Security notes
 - `APP_DEBUG=false` in production (never show stack traces).
 - Private verification documents live in `storage/app/private` on the volume and are only streamed to
   authorised reviewers; they are never under `/storage` URLs.
-- Secrets (`APP_KEY`, database password, AI key) live only in Railway variables / Space secrets — never in git.
+- Secrets (`APP_KEY`, database password, AI key) live only in Railway variables — never in git.
+- The AI service refuses to rank anything until its API key is set, and only ever receives medicine descriptions.
 - Before any real use: configure email, replace development-mode verification, review the medicine
   catalogue with pharmacists and get the legal approvals described in the project brief.
+
+---
+
+## Alternative: AI service on Hugging Face with PRO
+With a Hugging Face PRO subscription you can host the AI service as a Docker Space instead of on Railway:
+create a Docker Space, add the secret `MEDIMATCH_AI_API_KEY`, and run
+`ai-service/deploy/push-to-huggingface.sh YOUR-USERNAME/medimatch-ai`. Then use
+`AI_SERVICE_URL=https://YOUR-USERNAME-medimatch-ai.hf.space` on the web service.
+

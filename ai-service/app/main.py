@@ -51,6 +51,8 @@ def get_embedder(request: Request) -> Embedder:
 
 
 def require_api_key(settings: Annotated[Settings, Depends(get_settings)], x_api_key: Annotated[str | None, Header()] = None) -> None:
+    if settings.require_api_key and not settings.api_key:
+        raise HTTPException(status_code=503, detail="Service is not configured: set the MEDIMATCH_AI_API_KEY secret.")
     if settings.api_key and not hmac.compare_digest(settings.api_key, x_api_key or ""):
         raise HTTPException(status_code=401, detail="Invalid or missing API key.")
 
@@ -86,7 +88,12 @@ class RankResponse(BaseModel):
 @app.get("/health")
 def health(request: Request, settings: Annotated[Settings, Depends(get_settings)]) -> dict:
     embedder = request.app.state.embedder
-    return {"status": "ok" if embedder else "loading", "model": getattr(embedder, "model_name", settings.model_name), "score_floor": settings.score_floor}
+    return {
+        "status": "ok" if embedder else "loading",
+        "model": getattr(embedder, "model_name", settings.model_name),
+        "score_floor": settings.score_floor,
+        "api_key_configured": bool(settings.api_key),
+    }
 
 
 @app.post("/v1/rank", response_model=RankResponse, dependencies=[Depends(require_api_key)])
