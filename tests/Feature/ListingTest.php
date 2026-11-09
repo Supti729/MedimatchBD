@@ -61,6 +61,8 @@ class ListingTest extends TestCase
         $this->assertSame(1, $listing->images()->count());
         Storage::disk('public')->assertExists($listing->images->first()->path);
         $this->get(route('medicines.show', $listing))->assertOk();
+        // The photo is shown on the listing card in search results too.
+        $this->get('/search?q=napa')->assertSee($listing->images->first()->url, false);
     }
 
     public function test_verification_required_medicine_waits_for_review(): void

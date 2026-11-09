@@ -93,7 +93,7 @@ class MedicineListing extends Model
 
     public function scopeWithCardData(Builder $query): Builder
     {
-        return $query->with(['medicine.aliases', 'location', 'owner']);
+        return $query->with(['medicine.aliases', 'location', 'owner', 'images']);
     }
 
     public function isPublic(): bool

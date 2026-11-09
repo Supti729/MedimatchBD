@@ -1,0 +1,8 @@
+.venv
+.hf-cache
+.env
+__pycache__
+.pytest_cache
+tests
+evaluation
+deploy

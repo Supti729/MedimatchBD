@@ -25,6 +25,10 @@ Software Engineering Capstone Project. **This is an academic prototype, not an a
 - **Python 3 · FastAPI · Sentence Transformers** (`intfloat/multilingual-e5-small`) for semantic matching — see [`ai-service/`](ai-service/README.md)
 - PHPUnit feature tests (115) and pytest (8)
 
+## Deployment
+
+The app deploys to **Railway** (website + MySQL) and **Hugging Face Spaces** (AI service) with the Dockerfiles in this repository. Step-by-step guide: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+
 ## Running locally
 
 Requirements: PHP 8.3+ (with `pdo_mysql`, `gd`, `fileinfo`), Composer, Node 20+, MySQL 8.

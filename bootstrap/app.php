@@ -14,6 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Railway (and most hosts) terminate HTTPS at a proxy; trust its X-Forwarded-* headers
+        // so Laravel generates https:// links and secure cookies.
+        $middleware->trustProxies(at: '*');
         $middleware->web(append: [EnsureAccountIsActive::class]);
         $middleware->alias(['verified.account' => EnsureAccountIsVerified::class]);
         $middleware->redirectGuestsTo(fn (Request $request) => $request->is('admin', 'admin/*') ? route('admin.login') : route('login'));
